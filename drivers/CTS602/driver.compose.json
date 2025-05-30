@@ -3,6 +3,10 @@
   "name": {
     "en": "CTS602"
   },
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png"
+  },
   "class": "heatpump",
   "capabilities": [
     "target_temperature", "measure_temperature",
