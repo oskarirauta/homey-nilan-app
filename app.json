@@ -274,6 +274,10 @@
       "name": {
         "en": "CTS602"
       },
+      "images": {
+        "small": "/drivers/CTS602/assets/images/small.png",
+        "large": "/drivers/CTS602/assets/images/large.png"
+      },
       "class": "heatpump",
       "capabilities": [
         "target_temperature",
