@@ -1,0 +1,26 @@
+{
+  "type": "enum",
+  "uiComponent": "picker",
+  "title": {
+    "en": "Power state"
+  },
+  "desc": {
+    "en": "On/off state"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "On"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": true
+}
