@@ -1,0 +1,37 @@
+{
+  "id": "nilan_set_power_save",
+  "title": {
+    "en": "Set power saving to ..."
+  },
+  "titleFormatted": {
+    "en": "Set power saving to [[state]]"
+  },
+  "hint": {
+    "en": "Change power saving mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=NilanModbus"
+    },
+    {
+      "name": "state",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Disabled"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Enabled"
+          }
+        }
+      ]
+    }
+  ]
+}

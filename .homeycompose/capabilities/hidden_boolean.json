@@ -1,0 +1,11 @@
+{
+  "type": "boolean",
+  "title": {
+    "en": "Boolean"
+  },
+  "insights": false,
+  "getable": false,
+  "setable": false,
+  "uiQuickAction": false,
+  "uiComponent": null
+}

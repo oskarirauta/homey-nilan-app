@@ -1,0 +1,344 @@
+{
+  "id": "CTS700",
+  "name": {
+    "en": "CTS700"
+  },
+  "images": {
+    "small": "{{driverAssetsPath}}/images/small.png",
+    "large": "{{driverAssetsPath}}/images/large.png",
+    "xlarge": "{{driverAssetsPath}}/images/xlarge.png"
+  },
+  "class": "heatpump",
+  "capabilities": [
+    "measure_humidity", "measure_temperature.master",
+    "measure_temperature.outdoor", "measure_temperature.supply", "measure_temperature.extract", "measure_temperature.discharge",
+    "measure_temperature.cond", "measure_temperature.evap", "measure_temperature.water_top", "measure_temperature.water_bottom",
+    "measure_temperature.user",
+    "fanspeed.user",
+    "filter_days.inlet", "filter_days.outlet",
+    "operational_state.systemworkmode", "operational_state.external", "operational_state.regulation",
+    "alarm_generic.inlet", "alarm_generic.outlet"
+  ],
+  "capabilitiesOptions": {
+    "measure_humidity": {
+      "title": {
+        "en": "Humidity",
+        "da": "Luftfugtighed"
+      }
+    },
+    "measure_temperature.master": {
+      "title": {
+        "en": "Master-sensor",
+        "da": "Hoved-sensor"
+      }
+    },
+    "measure_temperature.outdoor": {
+      "title": {
+        "en": "Outdoor",
+        "da": "Udendørs"
+      } 
+    },
+    "measure_temperature.supply": {
+      "title": {
+        "en": "Supply",
+        "da": "Tilluft"
+      }
+    },
+    "measure_temperature.extract": {
+      "title": {
+        "en": "Extract",
+        "da": "Fraluft"
+      }
+    },
+    "measure_temperature.discharge": {
+      "title": {
+        "en": "Discharge",
+        "da": "Afkastluft"
+      }
+    },
+    "measure_temperature.cond": {
+      "title": {
+        "en": "Condenser",
+        "da": "Kondensator"
+      }
+    },
+    "measure_temperature.evap": {
+      "title": {
+        "en": "Evaporator",
+        "da": "Fordamper"
+      }
+    },
+    "measure_temperature.water_top": {
+      "title": {
+        "en": "Water top",
+        "da": "Varmt vand (top)"
+      }
+    },
+    "measure_temperature.water_bottom": {
+      "title": {
+        "en": "Water bottom",
+        "da": "Varmt vand (bottom)"
+      }
+    },
+    "measure_temperature.user": {
+      "title": {
+        "en": "Setpoint temperature",
+        "da": "Setpoint temperatur"
+      }
+    },
+    "fanspeed.user": {
+      "title": {
+        "en": "Setpoint fan speed",
+        "da": "Setpoint blæser"
+      }, 
+      "desc": {
+        "en": "Setpoing fan speed",
+        "da": "Setpoint blæser"
+      },
+      "units": {
+        "en": "/4"
+      }
+    },
+    "filter_days.inlet": {
+      "title": {
+        "en": "Inlet filter",
+        "da": "Indvendig filter"
+      },
+      "desc": {
+        "en": "Inlet filter",
+        "da": "Indvendig filter"
+      },
+      "units": {
+        "en": "Dage"
+      }
+    },
+    "filter_days.outlet": {
+      "title": {
+        "en": "Outlet filter",
+        "da": "Udvendig filter"
+      },
+      "desc": {
+        "en": "Inlet filter",
+        "da": "Udvendig filter"
+      },
+      "units": {
+        "en": "Dage"
+      }
+    },
+    "operational_state.systemworkmode": { 
+      "title": {
+        "en": "System status"
+      },
+      "desc": {
+        "en": "System work mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Ext.Operation"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Manual"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "LON"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Service"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ]
+    },
+    "operational_state.external": {
+      "title": {
+        "en": "External heater",
+        "da": "Ekstern varmer"
+      },
+      "desc": {
+        "en": "External heater state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Ok"
+          }
+        },
+        {
+         "id": "1",
+         "title": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Start up"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Refrigerate"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Frozen"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Error"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Not ready"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Overheat"
+          }
+        },
+        {
+          "id": "9",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ]
+    },
+    "operational_state.regulation": {
+      "title": {
+        "en": "Regulation mode"
+      },
+      "desc": {
+        "en": "Regulation mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Undefined"
+          }
+        },
+        {
+         "id": "1",
+         "title": {
+            "en": "Cooling"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Heating"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Ventilation"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Hot water"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ]
+    },
+    "alarm_generic.inlet": {
+      "title": {
+        "en": "Inlet filter service",
+        "da": "Indvendig filter service"
+       },
+       "desc": {
+         "en": "Inlet filter needs replacing"
+       },
+       "insightsTitleTrue": {
+         "en": "Inlet filter needs replacing"
+       },
+       "insightsTitleFalse": {  
+         "en": "Inlet filter state is OK"
+       }
+    },
+    "alarm_generic.outlet": {
+      "title": {
+        "en": "Outlet filter service",
+        "da": "Udvendig filter service"
+       },
+       "desc": {
+         "en": "Outlet filter needs replacing"
+       },
+       "insightsTitleTrue": {
+         "en": "Outlet filter needs replacing"
+       },
+       "insightsTitleFalse": {
+         "en": "Outlet filter state is OK"
+       }
+    }
+  },
+  "platforms": [
+    "local"
+  ],
+  "connectivity": [
+    "lan"
+  ],
+  "pair": [
+    {
+      "id": "connection"
+    },
+    {
+      "id": "list_devices",
+      "template": "list_devices",
+      "navigation": {
+        "next": "add_devices"
+      }
+    },
+    {
+      "id": "add_devices",
+      "template": "add_devices"
+    }
+  ]
+}

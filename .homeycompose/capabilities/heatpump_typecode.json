@@ -1,0 +1,14 @@
+{
+  "type": "string",
+  "title": {
+    "en": "Type code"
+  },
+  "desc": {
+    "en": "Heatpump type code"
+  },
+  "insights": false,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/hashtag.svg"
+}

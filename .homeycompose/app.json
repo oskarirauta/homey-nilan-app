@@ -1,0 +1,69 @@
+{
+  "id": "com.oskarirauta.nilan",
+  "version": "1.1.0",
+  "compatibility": ">=12.4.0",
+  "sdk": 3,
+  "platforms": [
+    "local"
+  ],
+  "name": {
+    "en": "Nilan"
+  },
+  "description": {
+    "en": "Outstanding indoor climate"
+  },
+  "brandColor2": "#db2029",
+  "category": [
+    "climate"
+  ],
+  "tags": {
+    "en": [
+      "nilan",
+      "temperature control",
+      "heating",
+      "hvac",
+      "cts602"
+    ]
+  },
+  "images": {
+    "large": "/assets/images/large.png",
+    "small": "/assets/images/small.png"
+  },
+  "brandColor": "#5C9DF3",
+  "permissions": [],
+  "author": {
+    "name": "Oskari Rauta",
+    "email": "oskari.rauta@gmail.com"
+  },
+  "contributors": {
+    "developers": [
+      {
+        "name": "Oskari Rauta",
+        "email": "oskari.rauta@gmail.com"
+      },
+      {
+        "name": "Bj??rnar Almli",
+        "email": "bjornar.almli@gmail.com"
+      },
+      {
+        "name": "Terje Torkelsen"
+      },
+      {
+        "name": "Kim Kokholm",
+        "email": "kokholm@gmail.com"
+      }
+    ]
+  },
+  "contributing": {
+    "donate": {
+      "paypal": {
+        "username": "oskarirauta"
+      }
+    }
+  },
+  "homeyCommunityTopicId": 137344,
+  "source": "https://github.com/oskarirauta/homey-nilan-app",
+  "bugs": {
+    "url": "https://github.com/oskarirauta/homey-nilan-app/issues"
+  }
+}

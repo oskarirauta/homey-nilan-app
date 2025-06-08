@@ -1,0 +1,90 @@
+[
+  {
+    "type": "group",
+    "label": {
+      "en": "Connection"
+    },
+    "children": [
+      {
+        "id": "device-ip",
+        "type": "text",
+        "label": {
+          "en": "IP address"
+        },
+        "value": "0.0.0.0",
+        "label": {
+          "en": "Port"
+        },
+        "hint": { 
+          "en": "Specify the ip of the Nilan Modbus adapter"
+        }
+      },
+      {
+        "id": "device-port",
+        "type": "number",
+        "label": {
+          "en": "Port"
+        },
+        "value": 502,
+        "min": 1,
+        "max": 65534,
+        "hint": {
+          "en": "TCP Port for modbus communication. Default: 502"
+        }
+      },
+      {
+        "id": "device-id",
+        "type": "number",
+        "label": {
+          "en": "Unit ID"
+        },
+        "value": 1,
+        "min": 1,
+        "max": 8,
+        "hint": {
+          "en": "Modbus unit ID for Nilan. Default: 1"
+        }
+      },
+      {
+        "id": "polling-interval",
+        "type": "number",
+        "label": {
+          "en": "Polling interval"
+        },
+        "value": 20,
+        "min": 10,
+        "max": 300,
+        "units": {
+          "en": "s"
+        },
+        "hint": {
+          "en": "Polling interval (seconds)"
+        }
+      }
+    ]
+  },
+  {
+    "type": "group",
+    "label": {
+      "en": "Reporting"
+    },
+    "children": [
+      {
+        "id": "temp-report-interval",
+        "type": "number",
+        "label": {
+          "en": "Temperature report interval"
+        },
+        "value": 30,
+        "min": 10,
+        "max": 600,
+        "units": {
+          "en": "s"
+        },
+        "hint": {
+          "en": "Time interval between consecutive temperature reports"
+        }
+      }
+    ]
+  }
+]

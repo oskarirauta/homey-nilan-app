@@ -1,0 +1,43 @@
+{
+  "id": "nilan_set_air_exchange",
+  "title": {
+    "en": "Set air exchange to ..."
+  },
+  "titleFormatted": {
+    "en": "Set air exchange to to [[mode]]"
+  },
+  "hint": {
+    "en": "Change air exchange mode"
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=NilanModbus"
+    },
+    {
+      "name": "mode",
+      "type": "dropdown",
+      "values": [
+        {
+          "id": "0",
+          "label": {
+            "en": "Energy"
+          }
+        },
+        {
+          "id": "1",
+          "label": {
+            "en": "Comfort"
+          }
+        },
+        {
+          "id": "2",
+          "label": {
+            "en": "Comfort + water"
+          }
+        }
+      ]
+    }
+  ]
+}

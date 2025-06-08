@@ -1,0 +1,10 @@
+{
+  "type": "string",
+  "title": {
+    "en": "String"
+  },
+  "insights": false,
+  "getable": false,
+  "setable": false,
+  "uiComponent": null
+}

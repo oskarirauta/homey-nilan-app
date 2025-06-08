@@ -1,0 +1,109 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Type"
+  },
+  "values": [
+    {
+      "id": "2",
+      "title": {
+        "en": "Comfort light"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "VPL 15c"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "en": "CompactS"
+      }
+    },
+    {
+      "id": "11",
+      "title": {
+        "en": "VP 18comp"
+      }
+    },
+    {
+      "id": "12",
+      "title": {
+        "en": "VP18cCom"
+      }
+    },
+    {
+      "id": "13",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "19",
+      "title": {
+        "en": "VP 18c"
+      }
+    },
+    {
+      "id": "20",
+      "title": {
+        "en": "VP 18ek"
+      }
+    },
+    {
+      "id": "21",
+      "title": {
+        "en": "VP 18cek"
+      }
+    },
+    {
+      "id": "25",
+      "title": {
+        "en": "VPL 25c"
+      }
+    },
+    {
+      "id": "31",
+      "title": {
+        "en": "COMFORTn"
+      }
+    },
+    {
+      "id": "33",
+      "title": {
+        "en": "COMBI 300 N"
+      }
+    },
+    {
+      "id": "35",
+      "title": {
+        "en": "COMBI 302"
+      }
+    },
+    {
+      "id": "36",
+      "title": {
+        "en": "COMBI 302 T"
+      }
+    },
+    {
+      "id": "38",
+      "title": {
+        "en": "VGU180 ek"
+      }
+    },
+    {
+      "id": "44",
+      "title": {
+        "en": "CompactP"
+      }
+    }
+  ],
+  "insights": false,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/heat_pump.svg"
+}
