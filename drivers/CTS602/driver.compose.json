@@ -39,24 +39,28 @@
     "measure_temperature": {
       "title": {
         "en": "Indoor"
-      }
+      },
+      "insights": false
     },
     "measure_temperature.indoor": {
       "title": {
         "en": "Indoor"
-      }
+      },
+      "insights": false
     },
     "target_temperature.water": {
       "title": {
         "en": "Hot water"
       },
       "min": 5,
-      "max": 65
+      "max": 65,
+      "insights": false
     },
     "measure_temperature.water": {
       "title": {
         "en": "Hot water"
-      } 
+      },
+      "insights": false
     },
     "target_humidity": {
       "title": {
@@ -71,7 +75,8 @@
       "min": 0,
       "max": 0.45,
       "steps": 0.01,
-      "decimals": 2
+      "decimals": 2,
+      "insights": false
     },
     "pump_mode.run": {
       "title": {
