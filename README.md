@@ -1,7 +1,9 @@
 ### homey-nilan-app
 
 With this app you can get support for many Nilan heatpumps running with CTS602 board
-to Homey. Connection to Nilan must be made through TCP Modbus device/bridge.
+or with CTS700 board - to Homey.
+
+Connection to Nilan must be made through TCP Modbus device/bridge.
 There are numerous one's available from many vendors, such as waveshare.
 
 Personally I can recommend very reasonable priced Elfin EW11 for this,

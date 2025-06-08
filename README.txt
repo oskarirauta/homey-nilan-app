@@ -1,6 +1,7 @@
-This app adds support for Nilan Heatpumps, such as EC9 - running with CTS602.
+This app adds support for Nilan Heatpumps, such as EC9 - running with CTS602
+while also combining support for CTS700.
 
-App uses TCP Modbus for communication though RS-486a.
+App uses TCP Modbus for communication though RS-485.
 For TCP Modbus connection, a bridge device is required; I personally can
 recommend cheap Elfin EW11, which works very nicely and has proven for me to be stable.
 It also accepts +12V provided by Nilan's heat pumps.
