@@ -25,7 +25,6 @@ module.exports = class CTS700Driver extends Homey.Driver {
       const api = new ModbusApi({
         homey: this.homey,
         logger: this.log,
-        quiet: true,
       });
       await api._connection(data.ipaddress, data.port, data.unitid);
 
