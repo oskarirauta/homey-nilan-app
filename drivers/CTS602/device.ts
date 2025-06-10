@@ -79,9 +79,21 @@ module.exports = class CTS602Device extends Homey.Device {
 
   async ready(): Promise<void> {
 
-    this.initDefaults();
-    this.log('device ready');
+    try {
 
+      await this.setCapabilityValue('bus_version', -1);
+      await this.setCapabilityValue('hidden_string.version_major', '');
+      await this.setCapabilityValue('hidden_string.version_minor', '');
+      await this.setCapabilityValue('hidden_string.version_release', '');
+      await this.setCapabilityValue('firmware_version', 'unknown');
+      await this.resetAlarms();
+      this.log('initial values set');
+
+    } catch (err) {
+      this.log('failed to set initial capacity values: ', err);
+    }
+
+    this.log('device ready');
     await this.connect();
   }
 
@@ -102,24 +114,6 @@ module.exports = class CTS602Device extends Homey.Device {
     }
     if (changedKeys.includes('temp_report_interval')) {
       this.addFetchTimeout();
-    }
-  }
-
-  async initDefaults(): Promise<void> {
-
-    try {
-
-      await this.setCapabilityValue('bus_version', -1);
-      await this.setCapabilityValue('hidden_string.version_major', '');
-      await this.setCapabilityValue('hidden_string.version_minor', '');
-      await this.setCapabilityValue('hidden_string.version_release', '');
-      await this.setCapabilityValue('firmware_version', 'unknown');
-      await this.resetAlarms();
-
-      this.log('initial values set');
-
-    } catch (err) {
-      this.log('failed to set initial capacity values: ', err);
     }
   }
 
