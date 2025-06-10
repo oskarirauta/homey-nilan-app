@@ -90,7 +90,7 @@ export const CAPABILITIES: CapacityMap = new Map([
     type: ValueType.Number,
   }],
   [ 'VAL_DEV_TSENS6', {
-    name: 'measure_temperatire.evap',
+    name: 'measure_temperature.evap',
     type: ValueType.Number,
   }],
   [ 'VAL_DEV_TSENS11', {
