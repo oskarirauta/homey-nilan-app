@@ -60,7 +60,13 @@ module.exports = class CTS700Device extends Homey.Device {
 
   async ready(): Promise<void> {
 
-    this.initDefaults();
+    try {
+      await this.resetAlarms();
+      this.log('initial values set');
+    } catch (err) {
+      this.log('failed to set initial capacity values: ', err);
+    }
+
     this.log('device ready');
 
     await this.connect();
@@ -83,19 +89,6 @@ module.exports = class CTS700Device extends Homey.Device {
     }
     if (changedKeys.includes('temp_report_interval')) {
       this.addFetchTimeout();
-    }
-  }
-
-  async initDefaults(): Promise<void> {
-
-    try {
-
-      await this.resetAlarms();
-
-      this.log('initial values set');
-
-    } catch (err) {
-      this.log('failed to set initial capacity values: ', err);
     }
   }
 
