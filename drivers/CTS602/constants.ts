@@ -244,18 +244,6 @@ export const CAPABILITIES: CapacityMap = new Map([
   }],
 ]);
 
-
-
-/*
-export interface UpdateMapping {
-  id: string,
-  description: string,
-  queries: Register.Queries,
-  factor?: number,
-  capability?: string,
-  timeout?: NodeJS.Timeout;
-};
-*/
 export const newUpdateMap = ((): UpdateMap => {
   return  new Map([
     [ 'target_temperature', {
@@ -321,4 +309,3 @@ export const MachineTypes: Map<number, string> = new Map([
   [ 38, 'VGU180 ek' ],
   [ 44, 'CompactP' ],
 ]);
-
