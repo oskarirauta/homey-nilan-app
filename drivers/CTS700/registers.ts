@@ -15,12 +15,12 @@ export const REGISTERS: Register.Queries = new Map([
     description: 'System working mode',
     modifier_read: asInt16,
   }],
-  [ 'prmFilterInlet_TimeThreshold', {
+  [ 'prmFilterInlet_TimeThreshold', { // interval of filter change
     addr: 1326,
     type: Register.Type.Holding,
     description: 'Inlet filter Time threshold',
   }],
-  [ 'prmFilterExhaust_TimeThreshold', {
+  [ 'prmFilterExhaust_TimeThreshold', { // interval of filter change
     addr: 1327,
     type: Register.Type.Holding,
     description: 'Outlet filter Time threshold',

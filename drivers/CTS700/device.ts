@@ -210,12 +210,14 @@ module.exports = class CTS700Device extends Homey.Device {
     if ((mapping.update !== undefined) && (this.updates.has(mapping.update)) && (this.updates.get(mapping.update)!.timeout !== undefined))
       return;
 
-    if ((mapping.name === 'alarm_generic.inlet') || (mapping.name === 'alarm_generic.outlet')) {
+    if ((mapping.name === 'filter_days.inlet') || (mapping.name === 'filter_days.outlet')) {
+
+      await this.updateNumber(mapping, value);
 
       const prev_inlet_alert = await this.getCapabilityValue('alarm_generic.inlet');
       const prev_outlet_alert = await this.getCapabilityValue('alarm_generic.outlet');
-      const new_inlet_alert = mapping.name === 'alarm_generic.inlet' ? (value > 0 ? false : true) : prev_inlet_alert;
-      const new_outlet_alert = mapping.name === 'alarm_generic.outlet' ? (value > 0 ? false : true) : prev_outlet_alert;
+      const new_inlet_alert = mapping.name === 'filter_days.inlet' ? (value > 0 ? false : true) : prev_inlet_alert;
+      const new_outlet_alert = mapping.name === 'filter_days.outlet' ? (value > 0 ? false : true) : prev_outlet_alert;
 
       if ((prev_inlet_alert === new_inlet_alert) && (prev_outlet_alert === new_outlet_alert))
         return;

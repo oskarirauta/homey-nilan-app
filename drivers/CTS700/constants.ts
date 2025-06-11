@@ -40,21 +40,13 @@ export const CAPABILITIES: CapacityMap = new Map([
     name: 'fanspeed.user',
     type: ValueType.Number,
   }],
-  [ 'prmFilterInlet_TimeThreshold', {
-    name: 'alarm_generic.inlet',
-    type: ValueType.Parser,
-  }],
-  [ 'prmFilterExhaust_TimeThreshold', {
-    name: 'alarm_generic.outlet',
-    type: ValueType.Parser,
-  }],
   [ 'prmFilterInlet_PassDays', {
     name: 'filter_days.inlet',
-    type: ValueType.Number,
+    type: ValueType.Parser,
   }],
   [ 'prmFilterExhaust_PassDays', {
     name: 'filter_days.outlet',
-    type: ValueType.Number,
+    type: ValueType.Parser,
   }],
   [ 'VAL_DEV_RH_SENSOR', {
     name: 'measure_humidity',
