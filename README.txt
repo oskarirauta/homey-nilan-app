@@ -1,5 +1,4 @@
-This app adds support for Nilan Heatpumps, such as EC9 - running with CTS602
-while also combining support for CTS700.
+This app adds support for Nilan Heatpumps, such as EC9 - with CTS602 or CTS700 boards.
 
 App uses TCP Modbus for communication though RS-485.
 For TCP Modbus connection, a bridge device is required; I personally can
@@ -10,5 +9,5 @@ App is very comprehensive and provides a lot of sensor data. You also get to con
 temperatures, humidity and modes of device - and can also do this with flows if you
 choose to.
 
-This app was built on top of already existing SystemAir app by Bjørnar Almli, so thank
+This app was built on top of already existing SystemAir app by Bj??rnar Almli, so thank
 you for that, propably couldn't have built this without his work.
