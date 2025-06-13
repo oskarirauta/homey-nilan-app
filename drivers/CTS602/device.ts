@@ -152,7 +152,7 @@ module.exports = class CTS602Device extends Homey.Device {
           this.log('Invalid ip address');
           await this.setUnavailable(this.homey.__('errors.invalid_ip_address'));
         } else if ((this._api._socket === undefined) || (this._api._client === undefined)) {
-          this.log('connection to device was lost');
+          this.log('Connection to device was lost');
           connectionLost = true;
           await this.setUnavailable(this.homey.__('errors.connection_lost'));
         } else {
