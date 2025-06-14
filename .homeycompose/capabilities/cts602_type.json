@@ -1,0 +1,301 @@
+{
+  "type": "enum",
+  "title": {
+    "en": "Type"
+  },
+  "values": [
+    {
+      "id": "0",
+      "title": {
+        "en": "Unknown"
+      }
+    },
+    {
+      "id": "1",
+      "title": {
+        "en": "Test"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "VPL 10"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "VPL 15"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "VPL 15c"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "VPL 25-3"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "VPL 25c-3"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "VPL 28-2"
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "en": "VPL 28c-2"
+      }
+    },
+    {
+      "id": "9",
+      "title": {
+        "en": "CompactSu"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "en": "CompactS"
+      }
+    },
+    {
+      "id": "11",
+      "title": {
+        "en": "VP 18comp"
+      }
+    },
+    {
+      "id": "12",
+      "title": {
+        "en": "VP 18c comp"
+      }
+    },
+    {
+      "id": "13",
+      "title": {
+        "en": "COMFORT"
+      }
+    },
+    {
+      "id": "14",
+      "title": {
+        "en": "COMFORT2"
+      }
+    },
+    {
+      "id": "15",
+      "title": {
+        "en": "VLX 1"
+      }
+    },
+    {
+      "id": "16",
+      "title": {
+        "en": "VLX 2"
+      }
+    },
+    {
+      "id": "17",
+      "title": {
+        "en": "VLX 3"
+      }
+    },
+    {
+      "id": "18",
+      "title": {
+        "en": "VP 18"
+      }
+    },
+    {
+      "id": "19",
+      "title": {
+        "en": "VP 18c"
+      }
+    },
+    {
+      "id": "20",
+      "title": {
+        "en": "Unknown"
+      }
+    },
+    {
+      "id": "21",
+      "title": {
+        "en": "VP 18cek"
+      }
+    },
+    {
+      "id": "22",
+      "title": {
+        "en": "VGU 250"
+      }
+    },
+    {
+      "id": "23",
+      "title": {
+        "en": "VGU 250ek"
+      }
+    },
+    {
+      "id": "24",
+      "title": {
+        "en": "VPL 25"
+      }
+    },
+    {
+      "id": "25",
+      "title": {
+        "en": "VPL 25c"
+      }
+    },
+    {
+      "id": "26",
+      "title": {
+        "en": "VPM/28EC"
+      }
+    },
+    {
+      "id": "27",
+      "title": {
+        "en": "COMFORTi"
+      }
+    },
+    {
+      "id": "28",
+      "title": {
+        "en": "VP 18cCoB"
+      }
+    },
+    {
+      "id": "29",
+      "title": {
+        "en": "VLX 4"
+      }
+    },
+    {
+      "id": "30",
+      "title": {
+        "en": "Compact N"
+      }
+    },
+    {
+      "id": "31",
+      "title": {
+        "en": "Comfort N"
+      }
+    },
+    {
+      "id": "32",
+      "title": {
+        "en": "VP 18 M1"
+      }
+    },
+    {
+      "id": "33",
+      "title": {
+        "en": "COMBI 300 N"
+      }
+    },
+    {
+      "id": "34",
+      "title": {
+        "en": "Compact U"
+      }
+    },
+    {
+      "id": "35",
+      "title": {
+        "en": "COMBI 302"
+      }
+    },
+    {
+      "id": "36",
+      "title": {
+        "en": "COMBI 302 T"
+      }
+    },
+    {
+      "id": "37",
+      "title": {
+        "en": "Unknown"
+      }
+    },
+    {
+      "id": "38",
+      "title": {
+        "en": "VGU180 ek"
+      }
+    },
+    {
+      "id": "39",
+      "title": {
+        "en": "VPM-1"
+      }
+    },
+    {
+      "id": "40",
+      "title": {
+        "en": "VPM-2"
+      }
+    },
+    {
+      "id": "41",
+      "title": {
+        "en": "VPM-3"
+      }
+    },
+    {
+      "id": "42",
+      "title": {
+        "en": "Unknown"
+      }
+    },
+    {
+      "id": "43",
+      "title": {
+        "en": "CompactP EK"
+      }
+    },
+    {
+      "id": "44",
+      "title": {
+        "en": "CompactP"
+      }
+    },
+    {
+      "id": "45",
+      "title": {
+        "en": "VPR"
+      }
+    },
+    {
+      "id": "46",
+      "title": {
+        "en": "Combi SH"
+      }
+    },
+    {
+      "id": "47",
+      "title": {
+        "en": "Unknown"
+      }
+    }
+  ],
+  "insights": false,
+  "getable": true,
+  "setable": false,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/heat_pump.svg"
+}

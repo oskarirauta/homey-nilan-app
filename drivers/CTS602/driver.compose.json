@@ -24,7 +24,7 @@
     "capacity.airheat", "capacity.cenheat", "capacity.compressor",
     "filter_days.left", "filter_days.since",
     "operational_state.run", "operational_state.mode", "operational_state.state", "operational_state.air_exchange", "operational_state.power_save",
-    "heatpump_type", "heatpump_typecode",
+    "cts602_type", "heatpump_typecode",
     "hidden_string.version_major", "hidden_string.version_minor", "hidden_string.version_release", "firmware_version", "bus_version",
     "hidden_number.alarm_count", "alarm_generic.filter", "alarm_pump_device"
   ],
@@ -613,7 +613,7 @@
         "en": "Heat pump is functioning without problems"
       }
     },
-    "heatpump_type": {
+    "cts602_type": {
       "title": {
         "en": "Type"
       }
