@@ -21,6 +21,9 @@ module.exports = class CTS602Driver extends Homey.Driver {
           if (!MachineTypes.has((machineType as unknown) as number)) {
             this.log('Unsupported machine type code ', (machineType as unknown) as number);
             reject(this.homey.__('errors.device_unsupported', {machineType}));
+          } else if (MachineTypes.get((machineType as unknown) as number) === '?') {
+            this.log('Unsupported machine type code ', (machineType as unknown) as number, ' - value is reserved for future uses');
+            reject(this.homey.__('errors.device_unsupported', {machineType}));
           }
           resolve((machineType as unknown) as number);
         } catch(err) {
