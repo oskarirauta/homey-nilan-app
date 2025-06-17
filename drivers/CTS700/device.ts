@@ -1,7 +1,7 @@
 import Homey from 'homey';
 import net from 'net';
 import { Register, ValueType, CapacityMapping, CapacityMap, UpdateMapping, UpdateMap, Fetch, limitValueRange } from '../../types';
-import { OPERATION_REGISTERS, SENSOR_REGISTERS, CAPABILITIES, newUpdateMap } from './constants'
+import { SENSOR_REGISTERS, CAPABILITIES, newUpdateMap } from './constants'
 import { ModbusApi } from '../../modbus_api';
 
 module.exports = class CTS700Device extends Homey.Device {
@@ -10,11 +10,6 @@ module.exports = class CTS700Device extends Homey.Device {
   fetchTimeout?: NodeJS.Timeout;
   updates: UpdateMap = newUpdateMap();
   fetches: Array<Fetch> = [
-    {
-      queries: OPERATION_REGISTERS,
-      condition: ((now, last): Boolean => { return true; }),
-      timeout: 0,
-    },
     {
       queries: SENSOR_REGISTERS,
       condition: ((now, last): Boolean => {
@@ -47,14 +42,18 @@ module.exports = class CTS700Device extends Homey.Device {
     this.log('device added');
   }
 
-  onDeleted(): void {
+  async disconnect(): Promise<void> {
     this.clearFetchTimeout();
     if (this._api) {
       if (this._api._clearSocketTimeout) {
         this._api._clearSocketTimeout();
       }
-      this._api._disconnect();
+      await this._api._disconnect();
     }
+  }
+
+  onDeleted(): void {
+    this.disconnect();
     this.log('device deleted');
   }
 
@@ -117,6 +116,61 @@ module.exports = class CTS700Device extends Homey.Device {
     let connectionLost = false;
     let connectionRestored = false;
 
+    if ((this.getSetting('device-ip') === undefined) || (this.getSetting('device-ip') === null) || (this.getSetting('device-ip').endsWith('.xxx')) || (this.getSetting('device-ip') === '')) {
+      this.log('IP address not set');
+      await this.setUnavailable(this.homey.__('unavailable.set_ip_address'));
+    } else if (!net.isIP(this.getSetting('device-ip'))) {
+      this.log('Invalid ip address');
+      await this.setUnavailable(this.homey.__('errors.invalid_ip_address'));
+    } else if (this.getAvailable()) {
+
+      const settings = this.getSettings();
+      await this._api._connection(settings['device-ip'], settings['device-port'], settings['device-id'])
+        .then(async (connection) => {
+
+          const now = Date.now();
+          for (let i = 0; i < this.fetches.length; i++) {
+            if (this.fetches[i].condition(now, this.fetches[i].last)) {
+              if (this.fetches[i].timeout === 0) {
+                try {
+                  await this._api.read(this.fetches[i].queries).catch((err: any) => this.log(err));
+                  this.fetches[i].last = now;
+                } catch(err) {}
+              } else {
+                this.homey.setTimeout(async () => {
+                  try {
+                    await this._api.read(this.fetches[i].queries).catch((err: any) => this.log(err));
+                    this.fetches[i].last = now;
+                  } catch (err) {}
+                }, this.fetches[i].timeout);
+              }
+            }
+          }
+
+          this.addFetchTimeout();
+
+        }).catch(async (err) => {
+          this.log('Connection to device was lost');
+          await this.setUnavailable(this.homey.__('errors.connection_lost'));
+          await this.disconnect();
+          this.addFetchTimeout(5);
+        })
+
+    } else { // not available
+
+      const settings = this.getSettings();
+
+      await this._api._connection(settings['device-ip'], settings['device-port'], settings['device-id'])
+        .then(async (connection) => {
+          this.log('Device connected');
+          await this.setAvailable();
+          this.addFetchTimeout(2);
+        }).catch(async (err) => {
+          await this.disconnect();
+          this.addFetchTimeout(5);
+        })
+    }
+/*
     try {
       if (this.getAvailable()) {
 
@@ -131,6 +185,9 @@ module.exports = class CTS700Device extends Homey.Device {
           connectionLost = true;
           await this.setUnavailable(this.homey.__('errors.connection_lost'));
         } else {
+
+          await this.connect();
+
 
           const now = Date.now();
           for ( let i = 0; i < this.fetches.length; i++ ) {
@@ -172,6 +229,7 @@ module.exports = class CTS700Device extends Homey.Device {
         this.addFetchTimeout();
       }
     }
+*/
   }
 
   async onUpdateValues(result: Register.Results, device: any): Promise<void> {

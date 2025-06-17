@@ -1,12 +1,6 @@
 import { Register, ValueType, CapacityMapping, CapacityMap, UpdateMapping, UpdateMap } from '../../types';
 import { REGISTERS } from './registers'
 
-export const OPERATION_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
-  'prmSystemWorkinMode',
-  'prmUserTemperature',
-  'prmUserFanSpeed',
-]);
-
 export const SENSOR_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
   'prmFilterInlet_TimeThreshold',
   'prmFilterExhaust_TimeThreshold',
@@ -24,6 +18,9 @@ export const SENSOR_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
   'VAL_DEV_TSENS11',
   'VAL_DEV_TSENS12',
   'prmRegulationMode',
+  'prmSystemWorkinMode',
+  'prmUserTemperature',
+  'prmUserFanSpeed',
 ]);
 
 export const CAPABILITIES: CapacityMap = new Map([

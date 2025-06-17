@@ -47,11 +47,11 @@ export class ModbusApi {
         this._socket = new net.Socket();
         this._client = new ModbusTCPClient(this._socket, this._device ? Number(this._device.getSetting('device-id')) : Number(unitId), 5000);
         this._socket.on('ready', () => {
-          self._logger('Socket ready');
+          // self._logger('Socket ready');
           self._addSocketTimeout();
           resolve(this._client);
         }).on('close', () => {
-          self._logger('Socket closed');
+          // self._logger('Socket closed');
           self._clearSocketTimeout();
           self._socket = undefined;
           self._client = undefined;
