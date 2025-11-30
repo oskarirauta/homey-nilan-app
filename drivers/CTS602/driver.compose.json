@@ -26,7 +26,7 @@
     "measure_temperature.controller", "measure_temperature.intake", "measure_temperature.inlet_before", "measure_temperature.exhaust",
     "measure_temperature.outlet", "measure_temperature.cond", "measure_temperature.evap", "measure_temperature.inlet_after",
     "measure_temperature.heater", "measure_temperature.extern", "measure_temperature.water_top", "measure_temperature.water_bottom",
-    "measure_temperature.room", "measure_co2",
+    "measure_temperature.panel", "measure_co2",
     "fanspeed.exhaust", "fanspeed.inlet",
     "capacity.airheat", "capacity.cenheat", "capacity.compressor",
     "filter_days.left", "filter_days.since",
@@ -692,9 +692,9 @@
         "en": "Hot water bottom"
       }
     }, 
-    "measure_temperature.room": {
+    "measure_temperature.panel": {
       "title": {
-        "en": "Room temperature"
+        "en": "User panel"
       }
     },
     "fanspeed.exhaust": {

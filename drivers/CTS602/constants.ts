@@ -156,7 +156,7 @@ export const CAPABILITIES: CapacityMap = new Map([
     type: ValueType.Number,
   }],
   [ 'Input.T15_Room', {
-    name: 'measure_temperature.room',
+    name: 'measure_temperature.panel',
     type: ValueType.Number,
   }],
   [ 'Input.RH', {

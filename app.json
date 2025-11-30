@@ -318,7 +318,7 @@
         "measure_temperature.extern",
         "measure_temperature.water_top",
         "measure_temperature.water_bottom",
-        "measure_temperature.room",
+        "measure_temperature.panel",
         "measure_co2",
         "fanspeed.exhaust",
         "fanspeed.inlet",
@@ -1000,9 +1000,9 @@
             "en": "Hot water bottom"
           }
         },
-        "measure_temperature.room": {
+        "measure_temperature.panel": {
           "title": {
-            "en": "Room temperature"
+            "en": "User panel"
           }
         },
         "fanspeed.exhaust": {
