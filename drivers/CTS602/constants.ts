@@ -16,6 +16,7 @@ export const OPERATION_REGISTERS: Register.Queries = Register.filter(REGISTERS, 
   'Control.TempSet',
   'HotWater.TempSet_T11',
   'HotWater.TempSet_T12',
+  'CentralHeat.TempSet',
   'AirQual.RH_LimLo',
   'AirFlow.AirExchMode',
 //  'Program.UserFuncAct',
@@ -47,6 +48,15 @@ export const SENSOR_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
   'Control.ModeAct',
   'Control.State',
   'AirTemp.TempRoom',
+  'Output.Compressor',
+  'Output.WaterHeatEl',
+  'Output.WaterHeat',
+  'Output.CenCircPump',
+  'Output.CenHeat_1',
+  'Output.CenHeat_2',
+  'Output.CenHeat_3',
+  'Output.CenHeatExt',
+  'Output.Defrosting',
   'Output.ExhaustSpeed',
   'Output.InletSpeed',
   'Output.AirHeatCap',
@@ -65,6 +75,22 @@ export const ALARM_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
 ]);
 
 export const CAPABILITIES: CapacityMap = new Map([
+  [ 'Output.Compressor', {
+    name: 'operational_state.compressor',
+    type: ValueType.State,
+  }],
+  [ 'Output.CenCircPump', {
+    name: 'operational_state.circulationpump',
+    type: ValueType.State,
+  }],
+  [ 'Output.CenHeatExt', {
+    name: 'operational_state.externalheater',
+    type: ValueType.State,
+  }],
+  [ 'Output.Defrosting', {
+    name: 'operational_state.defrosting',
+    type: ValueType.State,
+  }],
   [ 'AirTemp.TempRoom', {
     name: [ 'measure_temperature', 'measure_temperature.indoor' ],
     type: ValueType.Number,
@@ -189,6 +215,11 @@ export const CAPABILITIES: CapacityMap = new Map([
     type: ValueType.Number,
     update: 'target_temperature.water',
   }],
+  [ 'CentralHeat.TempSet', {
+    name: 'target_temperature.ek',
+    type: ValueType.Number,
+    update: 'target_temperature.ek',
+  }],
   [ 'Control.Type', {
     name: [ 'cts602_type', 'heatpump_typecode' ],
     type: ValueType.State,
@@ -254,6 +285,11 @@ export const newUpdateMap = ((): UpdateMap => {
     [ 'target_temperature.water', {
        id: 'HotWater.TempSet_T12',
        description: 'water temperature',
+       queries: OPERATION_REGISTERS,
+    }],
+    [ 'target_temperature.ek', {
+       id: 'CentralHeat.TempSet',
+       description: 'ek temperature',
        queries: OPERATION_REGISTERS,
     }],
     [ 'target_humidity', {

@@ -294,6 +294,69 @@ export const REGISTERS: Register.Queries = new Map([
 
   /* Holding registers */
 
+  [ 'Output.Compressor', {
+     addr: 109,
+     type: Register.Type.Holding,
+     description: 'Compressor',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.WaterHeatEl', {
+     addr: 116,
+     type: Register.Type.Holding,
+     description: 'Electric hot water heating',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.WaterHeat', {
+     addr: 117,
+     type: Register.Type.Holding,
+     description: 'Hot water heating',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.CenCircPump', {
+     addr: 118,
+     type: Register.Type.Holding,
+     description: 'EK circulation pump',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.CenHeat_1', {
+     addr: 119,
+     type: Register.Type.Holding,
+     description: 'EK heater relays 1',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.CenHeat_2', {
+     addr: 120,
+     type: Register.Type.Holding,
+     description: 'EK heater relays 1',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.CenHeat_3', {
+     addr: 121,
+     type: Register.Type.Holding,
+     description: 'EK heater relays 1',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.CenHeatExt', {
+     addr: 122,
+     type: Register.Type.Holding,
+     description: 'External radiator heat',
+     min: 0,
+     max: 1,
+  }],
+  [ 'Output.Defrosting', {
+     addr: 125,
+     type: Register.Type.Holding,
+     description: 'Defrosting function active',
+     min: 0,
+     max: 1,
+  }],
   [ 'Output.ExhaustSpeed', {
      addr: 200,
      type: Register.Type.Holding,
@@ -454,6 +517,14 @@ export const REGISTERS: Register.Queries = new Map([
     scale: 100,
     min: 500,
     max: 6500,
+  }],
+  [ 'CentralHeat.TempSet', {
+    addr: 1802,
+    type: Register.Type.Holding,
+    description: 'EK temperature setpoint',
+    scale: 100,
+    min: 500,
+    max: 6000,
   }],
   [ 'AirQual.RH_VentLo', {
     addr: 1910,

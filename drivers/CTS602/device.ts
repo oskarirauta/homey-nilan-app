@@ -204,6 +204,34 @@ module.exports = class CTS602Device extends Homey.Device {
     if (result.has('Alarm.Status') && result.has('Alarm.List_1_ID') && result.has('Alarm.List_2_ID') && result.has('Alarm.List_3_ID') && result.has('Input.AirFilter'))
       device.updateAlarms(result.get('Alarm.Status'), result.get('Alarm.List_1_ID'), result.get('Alarm.List_2_ID'), result.get('Alarm.List_3_ID'), result.get('Input.AirFilter'));
 
+    if (result.has('Output.WaterHeat') && result.has('Output.WaterHeatEl'))
+      await device.setCapabilityValue('operational_state.waterheat', result.get('Output.WaterHeat') === 1 ? ( result.get('Output.WaterHeatEl') === 0 ? '1' : '2' ) : '0');
+
+    if (result.has('Output.CenHeat_1') && result.has('Output.CenHeat_2') && result.has('Output.CenHeat_3')) {
+
+      const heater1 = result.get('Output.CenHeat_1');
+      const heater2 = result.get('Output.CenHeat_2');
+      const heater3 = result.get('Output.CenHeat_3');
+
+      if (heater1 === 0 && heater2 === 0 && heater3 === 0)
+        await device.setCapabilityValue('operational_state.electricheater', '0');
+      else if (heater1 === 1 && heater2 === 0 && heater3 === 0)
+        await device.setCapabilityValue('operational_state.electricheater', '1');
+      else if (heater1 === 0 && heater2 === 1 && heater3 === 0)
+        await device.setCapabilityValue('operational_state.electricheater', '2');
+      else if (heater1 === 1 && heater2 === 1 && heater3 === 0)
+        await device.setCapabilityValue('operational_state.electricheater', '3');
+      else if (heater1 === 0 && heater2 === 0 && heater3 === 1)
+        await device.setCapabilityValue('operational_state.electricheater', '4');
+      else if (heater1 === 1 && heater2 === 0 && heater3 === 1)
+        await device.setCapabilityValue('operational_state.electricheater', '5');
+      else if (heater1 === 0 && heater2 === 1 && heater3 === 1)
+        await device.setCapabilityValue('operational_state.electricheater', '6');
+      else if (heater1 === 1 && heater2 === 1 && heater3 === 1)
+        await device.setCapabilityValue('operational_state.electricheater', '7');
+      else await device.setCapabilityValue('operational_state.electricheater', '0');
+    }
+
     result.forEach((value, key) => {
       const mapping = CAPABILITIES.get(key);
       if (mapping !== undefined) {

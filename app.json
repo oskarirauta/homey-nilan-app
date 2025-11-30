@@ -2,7 +2,7 @@
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "com.oskarirauta.nilan",
   "version": "1.1.0",
-  "compatibility": ">=12.4.0",
+  "compatibility": ">=12.9.0",
   "sdk": 3,
   "platforms": [
     "local"
@@ -288,11 +288,18 @@
         "measure_temperature",
         "target_temperature.water",
         "measure_temperature.water",
+        "target_temperature.ek",
         "target_humidity",
         "pump_mode.run",
         "pump_mode.mode",
         "pump_mode.air_exchange",
         "pump_mode.power_save",
+        "operational_state.compressor",
+        "operational_state.electricheater",
+        "operational_state.externalheater",
+        "operational_state.waterheat",
+        "operational_state.circulationpump",
+        "operational_state.defrosting",
         "measure_humidity",
         "measure_temperature.indoor",
         "measure_temperature.outdoor",
@@ -368,6 +375,14 @@
           "title": {
             "en": "Hot water"
           },
+          "insights": false
+        },
+        "target_temperature.ek": {
+          "title": {
+            "en": "EK"
+          },
+          "min": 5,
+          "max": 60,
           "insights": false
         },
         "target_humidity": {
@@ -491,6 +506,174 @@
               "id": "1",
               "title": {
                 "en": "Enabled"
+              }
+            }
+          ]
+        },
+        "operational_state.compressor": {
+          "title": {
+            "en": "Compressor state"
+          },
+          "desc": {
+            "en": "On/off state"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "On"
+              }
+            }
+          ]
+        },
+        "operational_state.electricheater": {
+          "title": {
+            "en": "Electric heating"
+          },
+          "desc": {
+            "en": "Electric heating level"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "Level 1"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Level 2"
+              }
+            },
+            {
+              "id": "3",
+              "title": {
+                "en": "Level 3"
+              }
+            },
+            {
+              "id": "4",
+              "title": {
+                "en": "Level 4"
+              }
+            },
+            {
+              "id": "5",
+              "title": {
+                "en": "Level 5"
+              }
+            },
+            {
+              "id": "6",
+              "title": {
+                "en": "Level 6"
+              }
+            }
+          ]
+        },
+        "operational_state.externalheater": {
+          "title": {
+            "en": "External heater state"
+          },
+          "desc": {
+            "en": "On/off state"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "On"
+              }
+            }
+          ]
+        },
+        "operational_state.waterheat": {
+          "title": {
+            "en": "Water heating state"
+          },
+          "desc": {
+            "en": "Water heating mode"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "On"
+              }
+            },
+            {
+              "id": "2",
+              "title": {
+                "en": "Electric"
+              }
+            }
+          ]
+        },
+        "operational_state.circulationpump": {
+          "title": {
+            "en": "EK circulation pump state"
+          },
+          "desc": {
+            "en": "On/off state"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "On"
+              }
+            }
+          ]
+        },
+        "operational_state.defrosting": {
+          "title": {
+            "en": "Defrosting state"
+          },
+          "desc": {
+            "en": "On/off state"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
+              }
+            },
+            {
+              "id": "1",
+              "title": {
+                "en": "On"
               }
             }
           ]
