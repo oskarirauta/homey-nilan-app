@@ -1,5 +1,5 @@
 {
-  "id": "com.oskarirauta.nilan",
+  "id": "dk.nilan",
   "version": "1.1.0",
   "compatibility": ">=12.9.0",
   "sdk": 3,
@@ -7,10 +7,12 @@
     "local"
   ],
   "name": {
-    "en": "Nilan"
+    "en": "Nilan Air",
+    "da": "Nilan Air"
   },
   "description": {
-    "en": "Outstanding indoor climate"
+    "en": "Outstanding indoor climate",
+    "da": "Outstanding indoor climate"
   },
   "brandColor2": "#db2029",
   "category": [
@@ -22,14 +24,16 @@
       "temperature control",
       "heating",
       "hvac",
-      "cts602"
+      "cts602",
+      "cts700"
     ]
   },
   "images": {
     "large": "/assets/images/large.png",
-    "small": "/assets/images/small.png"
+    "small": "/assets/images/small.png",
+    "xlarge": "/assets/images/xlarge.png"
   },
-  "brandColor": "#5C9DF3",
+  "brandColor": "#db2029",
   "permissions": [],
   "author": {
     "name": "Oskari Rauta",
@@ -61,7 +65,7 @@
       }
     }
   },
-  "homeyCommunityTopicId": 137344,
+  "homeyCommunityTopicId": 100504,
   "source": "https://github.com/oskarirauta/homey-nilan-app",
   "bugs": {
     "url": "https://github.com/oskarirauta/homey-nilan-app/issues"
