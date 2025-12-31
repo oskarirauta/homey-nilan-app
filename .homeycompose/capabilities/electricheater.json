@@ -1,0 +1,29 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "External heater state"
+  },  
+  "desc": {
+    "en": "Electical heater state"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "On"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "insights": true,
+  "icon": "/assets/icons/power.svg"
+}

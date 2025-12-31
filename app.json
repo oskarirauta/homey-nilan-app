@@ -1,6 +1,6 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
-  "id": "com.oskarirauta.nilan",
+  "id": "dk.nilan",
   "version": "1.1.0",
   "compatibility": ">=12.9.0",
   "sdk": 3,
@@ -8,10 +8,12 @@
     "local"
   ],
   "name": {
-    "en": "Nilan"
+    "en": "Nilan Air",
+    "da": "Nilan Air"
   },
   "description": {
-    "en": "Outstanding indoor climate"
+    "en": "Outstanding indoor climate",
+    "da": "Outstanding indoor climate"
   },
   "brandColor2": "#db2029",
   "category": [
@@ -23,14 +25,16 @@
       "temperature control",
       "heating",
       "hvac",
-      "cts602"
+      "cts602",
+      "cts700"
     ]
   },
   "images": {
     "large": "/assets/images/large.png",
-    "small": "/assets/images/small.png"
+    "small": "/assets/images/small.png",
+    "xlarge": "/assets/images/xlarge.png"
   },
-  "brandColor": "#5C9DF3",
+  "brandColor": "#db2029",
   "permissions": [],
   "author": {
     "name": "Oskari Rauta",
@@ -62,7 +66,7 @@
       }
     }
   },
-  "homeyCommunityTopicId": 137344,
+  "homeyCommunityTopicId": 100504,
   "source": "https://github.com/oskarirauta/homey-nilan-app",
   "bugs": {
     "url": "https://github.com/oskarirauta/homey-nilan-app/issues"
@@ -289,17 +293,24 @@
         "target_temperature.water",
         "measure_temperature.water",
         "target_temperature.ek",
-        "target_humidity",
+        "nl_target_humidity",
         "pump_mode.run",
         "pump_mode.mode",
         "pump_mode.air_exchange",
         "pump_mode.power_save",
-        "operational_state.compressor",
-        "operational_state.electricheater",
-        "operational_state.externalheater",
-        "operational_state.waterheat",
-        "operational_state.circulationpump",
-        "operational_state.defrosting",
+        "insights_number.compressor_state",
+        "insights_number.hot_water_state",
+        "insights_number.externalheater",
+        "insights_number.waterpump_state",
+        "insights_number.defrosting_state",
+        "insights_number.electricheater",
+        "insights_number.run_state",
+        "compressor_state",
+        "electricheater",
+        "externalheater",
+        "hot_water_state",
+        "waterpump_state",
+        "defrosting_state",
         "measure_humidity",
         "measure_temperature.indoor",
         "measure_temperature.outdoor",
@@ -327,11 +338,11 @@
         "capacity.compressor",
         "filter_days.left",
         "filter_days.since",
-        "operational_state.run",
-        "operational_state.mode",
-        "operational_state.state",
-        "operational_state.air_exchange",
-        "operational_state.power_save",
+        "run_state",
+        "heatpump_mode",
+        "heatpump_state",
+        "air_exchange_mode",
+        "power_save_mode",
         "cts602_type",
         "heatpump_typecode",
         "hidden_string.version_major",
@@ -349,7 +360,8 @@
             "en": "Indoor"
           },
           "min": 5,
-          "max": 30
+          "max": 30,
+          "icon": "../../assets/icons/target_temperature_level.svg"
         },
         "measure_temperature": {
           "title": {
@@ -369,7 +381,8 @@
           },
           "min": 5,
           "max": 65,
-          "insights": false
+          "insights": false,
+          "icon": "../../assets/icons/target_temperature_level.svg"
         },
         "measure_temperature.water": {
           "title": {
@@ -383,23 +396,8 @@
           },
           "min": 5,
           "max": 60,
-          "insights": false
-        },
-        "target_humidity": {
-          "title": {
-            "en": "Humidity control"
-          },
-          "desc": {
-            "en": "Target humidity"
-          },
-          "units": {
-            "en": "%"
-          },
-          "min": 0,
-          "max": 0.45,
-          "steps": 0.01,
-          "decimals": 2,
-          "insights": false
+          "insights": false,
+          "icon": "../../assets//icons/target_temperature_min.svg"
         },
         "pump_mode.run": {
           "title": {
@@ -510,29 +508,24 @@
             }
           ]
         },
-        "operational_state.compressor": {
-          "title": {
-            "en": "Compressor state"
+        "compressor_state": {
+          "titleTrue": {
+            "en": "On"
           },
-          "desc": {
-            "en": "On/off state"
+          "titleFalse": {
+            "en": "Off"
           },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "On"
-              }
-            }
-          ]
+          "insightsTitleTrue": {
+            "en": "On"
+          },
+          "insightsTitleFalse": {
+            "en": "Off"
+          },
+          "insights": true
         },
-        "operational_state.electricheater": {
+        "electricheater": {
+          "type": "enum",
+          "uiComponent": "sensor",
           "title": {
             "en": "Electric heating"
           },
@@ -581,297 +574,35 @@
               "title": {
                 "en": "Level 6"
               }
-            }
-          ]
-        },
-        "operational_state.externalheater": {
-          "title": {
-            "en": "External heater state"
-          },
-          "desc": {
-            "en": "On/off state"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "On"
-              }
-            }
-          ]
-        },
-        "operational_state.waterheat": {
-          "title": {
-            "en": "Water heating state"
-          },
-          "desc": {
-            "en": "Water heating mode"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "On"
-              }
-            },
-            {
-              "id": "2",
-              "title": {
-                "en": "Electric"
-              }
-            }
-          ]
-        },
-        "operational_state.circulationpump": {
-          "title": {
-            "en": "EK circulation pump state"
-          },
-          "desc": {
-            "en": "On/off state"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "On"
-              }
-            }
-          ]
-        },
-        "operational_state.defrosting": {
-          "title": {
-            "en": "Defrosting state"
-          },
-          "desc": {
-            "en": "On/off state"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "On"
-              }
-            }
-          ]
-        },
-        "operational_state.run": {
-          "title": {
-            "en": "Run state"
-          },
-          "desc": {
-            "en": "On/off state"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "On"
-              }
-            },
-            {
-              "id": "2",
-              "title": {
-                "en": "Unknown"
-              }
-            }
-          ]
-        },
-        "operational_state.mode": {
-          "title": {
-            "en": "Mode"
-          },
-          "desc": {
-            "en": "Operation mode"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "Heat"
-              }
-            },
-            {
-              "id": "2",
-              "title": {
-                "en": "Cool"
-              }
-            },
-            {
-              "id": "3",
-              "title": {
-                "en": "Auto"
-              }
-            },
-            {
-              "id": "4",
-              "title": {
-                "en": "Service"
-              }
-            },
-            {
-              "id": "5",
-              "title": {
-                "en": "Unknown"
-              }
-            }
-          ]
-        },
-        "operational_state.state": {
-          "title": {
-            "en": "Pump state"
-          },
-          "desc": {
-            "en": "Operation state"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Off"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "Shift"
-              }
-            },
-            {
-              "id": "2",
-              "title": {
-                "en": "Stop"
-              }
-            },
-            {
-              "id": "3",
-              "title": {
-                "en": "Start"
-              }
-            },
-            {
-              "id": "4",
-              "title": {
-                "en": "Standby"
-              }
-            },
-            {
-              "id": "5",
-              "title": {
-                "en": "Ventilation stop"
-              }
-            },
-            {
-              "id": "6",
-              "title": {
-                "en": "Ventilation"
-              }
             },
             {
               "id": "7",
               "title": {
-                "en": "Heating"
+                "en": "Level 7"
+              }
+            }
+          ],
+          "insights": true,
+          "icon": "../../assets/icons/power.svg"
+        },
+        "waterpump_state": {
+          "title": {
+            "en": "Circulation pump"
+          },
+          "desc": {
+            "en": "EK Circulation pump state"
+          },
+          "values": [
+            {
+              "id": "0",
+              "title": {
+                "en": "Off"
               }
             },
             {
-              "id": "8",
+              "id": "1",
               "title": {
-                "en": "Cooling"
-              }
-            },
-            {
-              "id": "9",
-              "title": {
-                "en": "Hot water"
-              }
-            },
-            {
-              "id": "10",
-              "title": {
-                "en": "Legionella"
-              }
-            },
-            {
-              "id": "11",
-              "title": {
-                "en": "Cooling + hot water"
-              }
-            },
-            {
-              "id": "12",
-              "title": {
-                "en": "Central heating"
-              }
-            },
-            {
-              "id": "13",
-              "title": {
-                "en": "Defrost"
-              }
-            },
-            {
-              "id": "14",
-              "title": {
-                "en": "Frost secure"
-              }
-            },
-            {
-              "id": "15",
-              "title": {
-                "en": "Service"
-              }
-            },
-            {
-              "id": "16",
-              "title": {
-                "en": "Alarm"
-              }
-            },
-            {
-              "id": "17",
-              "title": {
-                "en": "Heating + hot water"
-              }
-            },
-            {
-              "id": "18",
-              "title": {
-                "en": "Unknown"
+                "en": "On"
               }
             }
           ]
@@ -897,25 +628,6 @@
               "id": "2",
               "title": {
                 "en": "Comfort + water"
-              }
-            }
-          ]
-        },
-        "operational_state.power_save": {
-          "title": {
-            "en": "Power saving mode"
-          },
-          "values": [
-            {
-              "id": "0",
-              "title": {
-                "en": "Disabled"
-              }
-            },
-            {
-              "id": "1",
-              "title": {
-                "en": "Enabled"
               }
             }
           ]
@@ -1114,10 +826,113 @@
             "en": "Firmware version"
           }
         },
-        "bus_version": {
+        "insights_number.compressor_state": {
           "title": {
-            "en": "Bus version"
-          }
+            "en": "Compressor"
+          },
+          "units": {
+            "en": "State"
+          },
+          "hint": {
+            "en": "0 = off, 1 = on"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 1,
+          "step": 1
+        },
+        "insights_number.hot_water_state": {
+          "title": {
+            "en": "Water heater"
+          },
+          "units": {
+            "en": "State"
+          },
+          "hint": {
+            "en": "0 = off, 1 = heating, 2 = electric heating"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 2,
+          "step": 1
+        },
+        "insights_number.externalheater": {
+          "title": {
+            "en": "External heater"
+          },
+          "units": {
+            "en": "State"
+          },
+          "hint": {
+            "en": "0 = off, 1 = on"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 1,
+          "step": 1
+        },
+        "insights_number.waterpump_state": {
+          "title": {
+            "en": "Circulation pump"
+          },
+          "units": {
+            "en": "State"
+          },
+          "hint": {
+            "en": "0 = off, 1 = on"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 1,
+          "step": 1
+        },
+        "insights_number.defrosting_state": {
+          "title": {
+            "en": "Defrosting"
+          },
+          "units": {
+            "en": "State"
+          },
+          "hint": {
+            "en": "0 = off, 1 = on"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 1,
+          "step": 1
+        },
+        "insights_number.electricheater": {
+          "title": {
+            "en": "Electric heater"
+          },
+          "desc": {
+            "en": "0 = off, >= = heating power level"
+          },
+          "units": {
+            "en": "Level"
+          },
+          "hint": {
+            "en": "0 = off, >0 = heating power level"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 7,
+          "step": 1
+        },
+        "insights_number.run_state": {
+          "title": {
+            "en": "Run"
+          },
+          "units": {
+            "en": "State"
+          },
+          "hint": {
+            "en": "0 = off, 1 = on"
+          },
+          "decimals": 0,
+          "min": 0,
+          "max": 1,
+          "step": 1
         }
       },
       "platforms": [
@@ -1674,6 +1489,40 @@
     }
   ],
   "capabilities": {
+    "air_exchange_mode": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Air exchange mode"
+      },
+      "desc": {
+        "en": "Air exchange mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Energy"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Comfort"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Comfort + water"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/air_exchange_mode.svg"
+    },
     "alarm_nilan": {
       "type": "enum",
       "title": {
@@ -2072,11 +1921,13 @@
       "icon": "/assets/icons/alarm.svg"
     },
     "bus_version": {
-      "type": "number",
+      "type": "string",
       "title": {
         "en": "Bus version"
       },
       "insights": false,
+      "preventInsights": true,
+      "preventTag": true,
       "getable": true,
       "setable": false,
       "uiComponent": "sensor",
@@ -2095,6 +1946,33 @@
       "decimals": 0,
       "uiComponent": "sensor",
       "icon": "/assets/icons/capacity.svg"
+    },
+    "compressor_state": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Compressor"
+      },
+      "desc": {
+        "en": "Compressor state"
+      },
+      "titleTrue": {
+        "en": "On"
+      },
+      "titleFalse": {
+        "en": "Off"
+      },
+      "insightsTitleTrue": {
+        "en": "On"
+      },
+      "insightsTitleFalse": {
+        "en": "Off"
+      },
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "insights": true,
+      "icon": "/assets/icons/compressor.svg"
     },
     "control_runset": {
       "type": "enum",
@@ -2423,6 +2301,77 @@
       "uiComponent": "sensor",
       "icon": "/assets/icons/heat_pump.svg"
     },
+    "defrosting_state": {
+      "type": "boolean",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Defrosting"
+      },
+      "desc": {
+        "en": "Defrosting state"
+      },
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/frozen.svg"
+    },
+    "electricheater": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "External heater state"
+      },
+      "desc": {
+        "en": "Electical heater state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "insights": true,
+      "icon": "/assets/icons/power.svg"
+    },
+    "externalheater": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "External heater"
+      },
+      "desc": {
+        "en": "Electical heater state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/externalheater.svg"
+    },
     "fanspeed": {
       "type": "number",
       "title": {
@@ -2459,6 +2408,188 @@
       "uiComponent": "sensor",
       "icon": "/assets/icons/firmware.svg"
     },
+    "heatpump_mode": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Mode"
+      },
+      "desc": {
+        "en": "Heatpump operation mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Heat"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Cool"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Auto"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Service"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/heatpump_mode.svg"
+    },
+    "heatpump_state": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "State"
+      },
+      "desc": {
+        "en": "Heatpump operation state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Shift"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Stop"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "Start"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "Standby"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "Ventilation stop"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "Ventilation"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "Heating"
+          }
+        },
+        {
+          "id": "8",
+          "title": {
+            "en": "Cooling"
+          }
+        },
+        {
+          "id": "9",
+          "title": {
+            "en": "Hot water"
+          }
+        },
+        {
+          "id": "10",
+          "title": {
+            "en": "Legionella"
+          }
+        },
+        {
+          "id": "11",
+          "title": {
+            "en": "Cooling + hot water"
+          }
+        },
+        {
+          "id": "12",
+          "title": {
+            "en": "Central heating"
+          }
+        },
+        {
+          "id": "13",
+          "title": {
+            "en": "Defrosting"
+          }
+        },
+        {
+          "id": "14",
+          "title": {
+            "en": "Frost secure"
+          }
+        },
+        {
+          "id": "15",
+          "title": {
+            "en": "Service"
+          }
+        },
+        {
+          "id": "16",
+          "title": {
+            "en": "Alarm"
+          }
+        },
+        {
+          "id": "17",
+          "title": {
+            "en": "Heating + hot water"
+          }
+        },
+        {
+          "id": "18",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/heatpump_state.svg"
+    },
     "heatpump_typecode": {
       "type": "string",
       "title": {
@@ -2490,7 +2621,7 @@
         "en": "Number"
       },
       "insights": false,
-      "getable": false,
+      "getable": true,
       "setable": false,
       "uiComponent": null
     },
@@ -2504,6 +2635,102 @@
       "setable": false,
       "uiComponent": null
     },
+    "hot_water_state": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Water heating"
+      },
+      "desc": {
+        "en": "Water heating state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Electric"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/hot_water_state.svg"
+    },
+    "humidity_level": {
+      "type": "number",
+      "title": {
+        "en": "Humidity"
+      },
+      "uiComponent": "slider",
+      "getable": true,
+      "setable": true,
+      "units": {
+        "en": "%"
+      },
+      "min": 0,
+      "max": 0.45,
+      "step": 0.01,
+      "decimals": 2,
+      "insights": false,
+      "icon": "/assets/icons/humidity.svg"
+    },
+    "insights_dec_number": {
+      "type": "number",
+      "title": {
+        "en": "Number"
+      },
+      "insights": true,
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
+    "insights_number": {
+      "type": "number",
+      "title": {
+        "en": "Number"
+      },
+      "decimals": 0,
+      "min": 0,
+      "step": 1,
+      "insights": true,
+      "getable": true,
+      "setable": false,
+      "uiComponent": null
+    },
+    "nl_target_humidity": {
+      "type": "number",
+      "title": {
+        "en": "Target humidity"
+      },
+      "desc": {
+        "en": "Target humidity in percent (%)"
+      },
+      "getable": true,
+      "setable": true,
+      "units": {
+        "en": "%"
+      },
+      "uiComponent": "slider",
+      "insights": true,
+      "min": 0,
+      "max": 0.45,
+      "step": 0.01,
+      "decimals": 2,
+      "icon": "/assets/icons/humidity.svg"
+    },
     "number_value": {
       "type": "number",
       "title": {
@@ -2515,6 +2742,68 @@
       "uiComponent": "sensor",
       "icon": "/assets/icons/hashtag.svg"
     },
+    "power_save_mode": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Power save"
+      },
+      "desc": {
+        "en": "Power save mode"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Disabled"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "Enabled"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/power_save_mode.svg"
+    },
+    "run_state": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Run state"
+      },
+      "desc": {
+        "en": "Heatpump running state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "Unknown"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/run_state.svg"
+    },
     "string_value": {
       "type": "string",
       "title": {
@@ -2524,6 +2813,34 @@
       "getable": true,
       "setable": false,
       "uiComponent": "sensor"
+    },
+    "waterpump_state": {
+      "type": "enum",
+      "uiComponent": "sensor",
+      "title": {
+        "en": "Waterpump"
+      },
+      "desc": {
+        "en": "Waterpump state"
+      },
+      "values": [
+        {
+          "id": "0",
+          "title": {
+            "en": "Off"
+          }
+        },
+        {
+          "id": "1",
+          "title": {
+            "en": "On"
+          }
+        }
+      ],
+      "getable": true,
+      "setable": false,
+      "uiQuickAction": false,
+      "icon": "/assets/icons/waterpump.svg"
     }
   }
 }

@@ -3,7 +3,10 @@
   "title": {
     "en": "Number"
   },
-  "insights": false,
+  "decimals": 0,
+  "min": 0,
+  "step": 1,
+  "insights": true,
   "getable": true,
   "setable": false,
   "uiComponent": null

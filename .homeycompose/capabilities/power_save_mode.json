@@ -1,0 +1,28 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Power save"
+  },  
+  "desc": {
+    "en": "Power save mode"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Disabled"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "Enabled"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/power_save_mode.svg"
+}

@@ -27,7 +27,7 @@ export namespace Register {
   });
 }
 
-export enum ValueType { Number, State, Parser };
+export enum ValueType { Number, State, Parser, Bool, String };
 
 export interface CapacityMapping {
   name: string | Array<string>;

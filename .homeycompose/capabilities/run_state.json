@@ -1,0 +1,34 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Run state"
+  },  
+  "desc": {
+    "en": "Heatpump running state"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "On"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Unknown"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/run_state.svg"
+}

@@ -1,9 +1,11 @@
 {
-  "type": "number",
+  "type": "string",
   "title": {
     "en": "Bus version"
   },
   "insights": false,
+  "preventInsights": true,
+  "preventTag": true,
   "getable": true,
   "setable": false,
   "uiComponent": "sensor",

@@ -1,0 +1,14 @@
+{
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Defrosting"
+  },  
+  "desc": {
+    "en": "Defrosting state"
+  },
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/frozen.svg"
+}

@@ -1,0 +1,34 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Water heating"
+  },  
+  "desc": {
+    "en": "Water heating state"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "On"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Electric"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/hot_water_state.svg"
+}

@@ -81,11 +81,19 @@ module.exports = class CTS602Device extends Homey.Device {
 
     try {
 
-      await this.setCapabilityValue('bus_version', -1);
+      await this.setCapabilityValue('bus_version', '');
       await this.setCapabilityValue('hidden_string.version_major', '');
       await this.setCapabilityValue('hidden_string.version_minor', '');
       await this.setCapabilityValue('hidden_string.version_release', '');
       await this.setCapabilityValue('firmware_version', 'unknown');
+      await this.setCapabilityValue('insights_number.compressor_state', 0);
+      await this.setCapabilityValue('insights_number.defrosting_state', 0);
+      await this.setCapabilityValue('insights_number.electricheater', 0);
+      await this.setCapabilityValue('insights_number.externalheater', 0);
+      await this.setCapabilityValue('insights_number.hot_water_state', 0);
+      await this.setCapabilityValue('insights_number.waterpump_state', 0);
+      await this.setCapabilityValue('insights_number.run_state', 0);
+
       await this.resetAlarms();
       this.log('initial values set');
 
@@ -204,8 +212,13 @@ module.exports = class CTS602Device extends Homey.Device {
     if (result.has('Alarm.Status') && result.has('Alarm.List_1_ID') && result.has('Alarm.List_2_ID') && result.has('Alarm.List_3_ID') && result.has('Input.AirFilter'))
       device.updateAlarms(result.get('Alarm.Status'), result.get('Alarm.List_1_ID'), result.get('Alarm.List_2_ID'), result.get('Alarm.List_3_ID'), result.get('Input.AirFilter'));
 
-    if (result.has('Output.WaterHeat') && result.has('Output.WaterHeatEl'))
-      await device.setCapabilityValue('operational_state.waterheat', result.get('Output.WaterHeat') === 1 ? ( result.get('Output.WaterHeatEl') === 0 ? '1' : '2' ) : '0');
+    if (result.has('Output.WaterHeat') && result.has('Output.WaterHeatEl')) {
+      await device.setCapabilityValue('hot_water_state', result.get('Output.WaterHeat') === 1 ? ( result.get('Output.WaterHeatEl') === 0 ? '1' : '2' ) : '0');
+      await device.setCapabilityValue('insights_number.hot_water_state', result.get('Output.WaterHeat') === 1 ? ( result.get('Output.WaterHeatEl') === 0 ? 1 : 2 ) : 0);
+    }
+
+    if (result.has('Output.Compressor'))
+      await device.setCapabilityValue('insights_number.compressor_state', result.get('Output.Compressor') === 0 ? 0 : 1);
 
     if (result.has('Output.CenHeat_1') && result.has('Output.CenHeat_2') && result.has('Output.CenHeat_3')) {
 
@@ -213,24 +226,50 @@ module.exports = class CTS602Device extends Homey.Device {
       const heater2 = result.get('Output.CenHeat_2');
       const heater3 = result.get('Output.CenHeat_3');
 
-      if (heater1 === 0 && heater2 === 0 && heater3 === 0)
-        await device.setCapabilityValue('operational_state.electricheater', '0');
-      else if (heater1 === 1 && heater2 === 0 && heater3 === 0)
-        await device.setCapabilityValue('operational_state.electricheater', '1');
-      else if (heater1 === 0 && heater2 === 1 && heater3 === 0)
-        await device.setCapabilityValue('operational_state.electricheater', '2');
-      else if (heater1 === 1 && heater2 === 1 && heater3 === 0)
-        await device.setCapabilityValue('operational_state.electricheater', '3');
-      else if (heater1 === 0 && heater2 === 0 && heater3 === 1)
-        await device.setCapabilityValue('operational_state.electricheater', '4');
-      else if (heater1 === 1 && heater2 === 0 && heater3 === 1)
-        await device.setCapabilityValue('operational_state.electricheater', '5');
-      else if (heater1 === 0 && heater2 === 1 && heater3 === 1)
-        await device.setCapabilityValue('operational_state.electricheater', '6');
-      else if (heater1 === 1 && heater2 === 1 && heater3 === 1)
-        await device.setCapabilityValue('operational_state.electricheater', '7');
-      else await device.setCapabilityValue('operational_state.electricheater', '0');
+      if (heater1 === 0 && heater2 === 0 && heater3 === 0) {
+        await device.setCapabilityValue('electricheater', '0');
+        await device.setCapabilityValue('insights_number.electricheater', 0);
+      } else if (heater1 === 1 && heater2 === 0 && heater3 === 0) {
+        await device.setCapabilityValue('electricheater', '1');
+        await device.setCapabilityValue('insights_number.electricheater', 1);
+      } else if (heater1 === 0 && heater2 === 1 && heater3 === 0) {
+        await device.setCapabilityValue('electricheater', '2');
+        await device.setCapabilityValue('insights_number.electricheater', 2);
+      } else if (heater1 === 1 && heater2 === 1 && heater3 === 0) {
+        await device.setCapabilityValue('electricheater', '3');
+        await device.setCapabilityValue('insights_number.electricheater', 3);
+      } else if (heater1 === 0 && heater2 === 0 && heater3 === 1) {
+        await device.setCapabilityValue('electricheater', '4');
+        await device.setCapabilityValue('insights_number.electricheater', 4);
+      } else if (heater1 === 1 && heater2 === 0 && heater3 === 1) {
+        await device.setCapabilityValue('electricheater', '5');
+        await device.setCapabilityValue('insights_number.electricheater', 5);
+      } else if (heater1 === 0 && heater2 === 1 && heater3 === 1) {
+        await device.setCapabilityValue('electricheater', '6');
+        await device.setCapabilityValue('insights_number.electricheater', 6);
+      } else if (heater1 === 1 && heater2 === 1 && heater3 === 1) {
+        await device.setCapabilityValue('electricheater', '7');
+        await device.setCapabilityValue('insights_number.electricheater', 7);
+      } else {
+        await device.setCapabilityValue('electricheater', '0');
+        await device.setCapabilityValue('insights_number.electricheater', 0);
+      }
     }
+
+    if (result.has('Output.Defrosting'))
+      await device.setCapabilityValue('insights_number.defrosting_state', result.get('Output.Defrosting') === 0 ? 0 : 1);
+
+    if (result.has('Output.CenHeatExt'))
+      await device.setCapabilityValue('insights_number.externalheater', result.get('Output.CenHeatExt') === 0 ? 0 : 1);
+
+    if (result.has('Output.CenCircPump'))
+      await device.setCapabilityValue('insights_number.waterpump_state', result.get('Output.CenCircPump') === 0 ? 0 : 1);
+
+    if (result.has('Output.CenHeatExt'))
+      await device.setCapabilityValue('insights_number.externalheater', result.get('Output.CenHeatExt') === 0 ? 0 : 1);
+
+    if (result.has('Control.RunAct'))
+      await device.setCapabilityValue('insights_number.run_state', result.get('Control.RunAct') === 0 ? 0 : 1);
 
     result.forEach((value, key) => {
       const mapping = CAPABILITIES.get(key);
@@ -251,10 +290,12 @@ module.exports = class CTS602Device extends Homey.Device {
     const toValue = Math.round(10 * value / factor) * 0.1
 
     if (typeof(mapping.name) === 'string') {
-      await this.setCapabilityValue(mapping.name, mapping.type === ValueType.State ? toValue.toString() : toValue).catch(err => this.log(err));
+      await this.setCapabilityValue(mapping.name,
+        ( mapping.type === ValueType.State || mapping.type === ValueType.String ) ? toValue.toString() : (mapping.type === ValueType.Bool ? ( toValue === 0 ? false : true ) : toValue)).catch(err => this.log(err));
     } else if (Array.isArray(mapping.name)) {
       for ( let i = 0; i < mapping.name.length; i++ )        
-        await this.setCapabilityValue(mapping.name[i], mapping.type === ValueType.State ? toValue.toString() : toValue).catch(err => this.log(err));
+        await this.setCapabilityValue(mapping.name[i],
+          ( mapping.type === ValueType.State || mapping.type === ValueType.String ) ? toValue.toString() : (mapping.type === ValueType.Bool ? ( toValue === 0 ? false : true ) : toValue)).catch(err => this.log(err));
     }
   }
 

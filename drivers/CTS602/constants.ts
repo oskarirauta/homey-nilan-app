@@ -76,20 +76,20 @@ export const ALARM_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
 
 export const CAPABILITIES: CapacityMap = new Map([
   [ 'Output.Compressor', {
-    name: 'operational_state.compressor',
-    type: ValueType.State,
+    name: 'compressor_state',
+    type: ValueType.Bool,
   }],
   [ 'Output.CenCircPump', {
-    name: 'operational_state.circulationpump',
+    name: 'waterpump_state',
     type: ValueType.State,
   }],
   [ 'Output.CenHeatExt', {
-    name: 'operational_state.externalheater',
+    name: 'externalheater',
     type: ValueType.State,
   }],
   [ 'Output.Defrosting', {
-    name: 'operational_state.defrosting',
-    type: ValueType.State,
+    name: 'defrosting_state',
+    type: ValueType.Bool,
   }],
   [ 'AirTemp.TempRoom', {
     name: [ 'measure_temperature', 'measure_temperature.indoor' ],
@@ -168,10 +168,10 @@ export const CAPABILITIES: CapacityMap = new Map([
     type: ValueType.Number,
   }],
   [ 'AirQual.RH_LimLo', {
-    name: 'target_humidity',
+    name: 'nl_target_humidity',
     type: ValueType.Number,
     factor: 100,
-    update: 'target_humidity',
+    update: 'nl_target_humidity',
   }],
   [ 'Output.ExhaustSpeed', {
     name: 'fanspeed.exhaust',
@@ -203,7 +203,7 @@ export const CAPABILITIES: CapacityMap = new Map([
   }],
   [ 'Bus.Version', {
     name: 'bus_version',
-    type: ValueType.Number,
+    type: ValueType.String,
   }],
   [ 'Control.TempSet', {
     name: 'target_temperature',
@@ -228,9 +228,9 @@ export const CAPABILITIES: CapacityMap = new Map([
     name: 'pump_mode.run',
     type: ValueType.State,
     update: 'pump_mode.run',
-  }],  
+  }],
   [ 'Control.RunAct', {
-    name: 'operational_state.run',
+    name: 'run_state',
     type: ValueType.State,
     max: 2,
     update: 'pump_mode.run',
@@ -241,23 +241,23 @@ export const CAPABILITIES: CapacityMap = new Map([
     update: 'pump_mode.mode',
   }],
   [ 'Control.ModeAct', {
-    name: 'operational_state.mode',
+    name: 'heatpump_mode',
     type: ValueType.State,
     max: 5,
     update: 'pump_mode.mode',
   }],
   [ 'Control.State', {
-    name: 'operational_state.state',
+    name: 'heatpump_state',
     max: 18,
     type: ValueType.State,
   }],
   [ 'AirFlow.AirExchMode', {
-    name: [ 'pump_mode.air_exchange', 'operational_state.air_exchange' ],
+    name: [ 'pump_mode.air_exchange', 'air_exchange_mode' ],
     type: ValueType.State,
     update: 'pump_mode.air_exchange',
   }],
   [ 'Control.PowerSave', {
-    name: [ 'pump_mode.power_save', 'operational_state.power_save' ],
+    name: [ 'pump_mode.power_save', 'power_save_mode' ],
     type: ValueType.State,
     update: 'pump_mode.power_save',
   }],
@@ -292,7 +292,7 @@ export const newUpdateMap = ((): UpdateMap => {
        description: 'ek temperature',
        queries: OPERATION_REGISTERS,
     }],
-    [ 'target_humidity', {
+    [ 'nl_target_humidity', {
       id: 'AirQual.RH_LimLo',
       description: 'target humidity',
       queries: OPERATION_REGISTERS,
@@ -302,25 +302,25 @@ export const newUpdateMap = ((): UpdateMap => {
       id: 'Control.RunSet',
       description: 'run set',
       queries: OPERATION_REGISTERS,
-      capability: 'operational_state.run',
+      capability: 'run_state',
     }],
     [ 'pump_mode.mode', {
       id: 'Control.ModeSet',
       description: 'mode',
       queries: OPERATION_REGISTERS,
-      capability: 'operational_state.mode',
+      capability: 'heatpump_mode',
     }],
     [ 'pump_mode.air_exchange', {
       id: 'AirFlow.AirExchMode',
       description: 'air exchange mode',
       queries: OPERATION_REGISTERS,
-      capability: 'operational_state.air_exchange',
+      capability: 'air_exchange_mode',
     }],
     [ 'pump_mode.power_save', {
       id: 'Control.PowerSave',
       description: 'power save mode',
       queries: OPERATION_REGISTERS,
-      capability: 'operational_state.power_save',
+      capability: 'power_save_mode',
     }],
   ]);
 });

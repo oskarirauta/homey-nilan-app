@@ -256,10 +256,12 @@ module.exports = class CTS700Device extends Homey.Device {
     const toValue = Math.round(10 * value / factor) * 0.1
 
     if (typeof(mapping.name) === 'string') {
-      await this.setCapabilityValue(mapping.name, mapping.type === ValueType.State ? toValue.toString() : toValue).catch(err => this.log(err));
+      await this.setCapabilityValue(mapping.name,
+        ( mapping.type === ValueType.State || mapping.type === ValueType.String ) ? toValue.toString() : (mapping.type === ValueType.Bool ? ( toValue === 0 ? false : true ) : toValue)).catch(err => this.log(err));
     } else if (Array.isArray(mapping.name)) {
       for ( let i = 0; i < mapping.name.length; i++ )        
-        await this.setCapabilityValue(mapping.name[i], mapping.type === ValueType.State ? toValue.toString() : toValue).catch(err => this.log(err));
+        await this.setCapabilityValue(mapping.name[i],
+          ( mapping.type === ValueType.State || mapping.type === ValueType.String ) ? toValue.toString() : (mapping.type === ValueType.Bool ? ( toValue === 0 ? false : true ) : toValue)).catch(err => this.log(err));
     }
   }
 

@@ -1,0 +1,34 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Air exchange mode"
+  },  
+  "desc": {
+    "en": "Air exchange mode"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Energy"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "Comfort"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Comfort + water"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/air_exchange_mode.svg"
+}

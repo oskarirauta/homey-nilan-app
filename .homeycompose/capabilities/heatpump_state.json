@@ -1,0 +1,132 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "State"
+  },  
+  "desc": {
+    "en": "Heatpump operation state"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "Shift"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Stop"
+      }
+    },
+    { 
+      "id": "3",
+      "title": {
+        "en": "Start"
+      }
+    }, 
+    { 
+      "id": "4",
+      "title": {
+        "en": "Standby"   
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Ventilation stop"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "Ventilation"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "Heating"
+      }
+    },
+    {
+      "id": "8",
+      "title": {
+        "en": "Cooling"
+      }
+    },
+    {
+      "id": "9",
+      "title": {
+        "en": "Hot water"
+      }
+    },
+    {
+      "id": "10",
+      "title": {
+        "en": "Legionella"
+      }
+    },
+    {
+      "id": "11",
+      "title": {
+        "en": "Cooling + hot water"
+      }
+    },
+
+
+    {
+      "id": "12",
+      "title": {
+        "en": "Central heating"
+      }
+    },
+    {
+      "id": "13",
+      "title": {
+        "en": "Defrosting"
+      }
+    },
+    {
+      "id": "14",
+      "title": {
+        "en": "Frost secure"
+      }
+    },
+    {
+      "id": "15",
+      "title": {
+        "en": "Service"
+      }
+    },
+    {
+      "id": "16",
+      "title": {
+        "en": "Alarm"
+      }
+    },
+    {
+      "id": "17",
+      "title": {
+        "en": "Heating + hot water"
+      }
+    },
+    {
+      "id": "18",
+      "title": {
+        "en": "Unknown"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/heatpump_state.svg"
+}

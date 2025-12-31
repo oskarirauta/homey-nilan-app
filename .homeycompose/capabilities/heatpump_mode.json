@@ -1,0 +1,52 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Mode"
+  },  
+  "desc": {
+    "en": "Heatpump operation mode"
+  },
+  "values": [
+    {  
+      "id": "0",
+      "title": {
+        "en": "Off"
+      }
+    },
+    {  
+      "id": "1",
+      "title": {
+        "en": "Heat"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "Cool"
+      }
+    },
+    { 
+      "id": "3",
+      "title": {
+        "en": "Auto"
+      }
+    }, 
+    { 
+      "id": "4",
+      "title": {
+        "en": "Service"   
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "Unknown"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/heatpump_mode.svg"
+}

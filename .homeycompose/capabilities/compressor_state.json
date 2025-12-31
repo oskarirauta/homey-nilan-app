@@ -1,0 +1,27 @@
+{
+  "type": "boolean",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Compressor"
+  },  
+  "desc": {
+    "en": "Compressor state"
+  },
+  "titleTrue": {
+    "en": "On"
+  },
+  "titleFalse": {
+    "en": "Off"
+  },
+  "insightsTitleTrue": {
+    "en": "On"
+  },
+  "insightsTitleFalse": {
+    "en": "Off"
+  },
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "insights": true,
+  "icon": "/assets/icons/compressor.svg"
+}
