@@ -1,0 +1,40 @@
+{
+  "type": "enum",
+  "uiComponent": "sensor",
+  "title": {
+    "en": "Ventilation set point"
+  },  
+  "desc": {
+    "en": "Actual ventilation step set point"
+  },
+  "values": [
+    {  
+      "id": "1",
+      "title": {
+        "en": "1"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "2"
+      }
+    },
+    { 
+      "id": "3",
+      "title": {
+        "en": "3"
+      }
+    }, 
+    { 
+      "id": "4",
+      "title": {
+        "en": "4"
+      }
+    }
+  ],
+  "getable": true,
+  "setable": false,
+  "uiQuickAction": false,
+  "icon": "/assets/icons/heatpump_state.svg"
+}

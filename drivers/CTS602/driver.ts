@@ -61,13 +61,15 @@ module.exports = class CTS602Driver extends Homey.Driver {
       await api._disconnect();
       await api._connection(data.ipaddress, data.port, data.unitid);
 
-      this.log('got machinetype code ' + machineType);
-      this.log('device identified as ' + MachineTypes.get(machineType));
+      const machineId = data.ipaddress + '.' + data.port.toString() + '.' + data.unitid.toString();
+      this.log('device id: ' + machineId);
 
       devices = [{
         name: MachineTypes.get(machineType),
         data: {
-          id: 'x.x.x.x',
+          id: machineId,
+          model: machineType,
+          externalheater: data.externalheater
         },
         settings: {
           'device-ip': data.ipaddress,

@@ -8,7 +8,37 @@
     "large": "{{driverAssetsPath}}/images/large.png"
   },
   "class": "heatpump",
-  "capabilities": [],
+  "capabilities": [
+    "target_temperature", "measure_temperature",
+    "target_temperature.water", "measure_temperature.water",
+    "target_temperature.ek",
+    "nl_target_humidity",
+    "pump_mode.run", "pump_mode.mode", "pump_mode.air_exchange", "pump_mode.power_save",
+    "insights_number.compressor_state", "insights_number.hot_water_state", "insights_number.externalheater",
+    "insights_number.waterpump_state", "insights_number.defrosting_state",
+    "insights_number.electricheater",
+    "insights_number.run_state",
+    "compressor_state",
+    "electricheater",
+    "externalheater",
+    "hot_water_state",
+    "waterpump_state",
+    "defrosting_state",
+    "measure_humidity",
+    "measure_temperature.indoor", "measure_temperature.outdoor", "measure_temperature.water_current",
+    "measure_temperature.ek_supply", "measure_temperature.ek_return",
+    "measure_temperature.controller", "measure_temperature.intake", "measure_temperature.inlet_before", "measure_temperature.exhaust",
+    "measure_temperature.outlet", "measure_temperature.cond", "measure_temperature.evap", "measure_temperature.inlet_after",
+    "measure_temperature.heater", "measure_temperature.extern", "measure_temperature.water_top", "measure_temperature.water_bottom",
+    "measure_temperature.panel", "measure_co2",
+    "fanspeed.exhaust", "fanspeed.inlet",
+    "capacity.airheat", "capacity.cenheat", "capacity.compressor",
+    "filter_days.left", "filter_days.since",
+    "run_state", "heatpump_mode", "heatpump_state", "air_exchange_mode", "power_save_mode",
+    "cts602_type", "heatpump_typecode",
+    "hidden_string.version_major", "hidden_string.version_minor", "hidden_string.version_release", "firmware_version", "bus_version",
+    "hidden_number.alarm_count", "alarm_generic.filter", "alarm_pump_device"
+  ],
   "capabilitiesOptions": {
     "target_temperature": {
       "title": {
@@ -17,41 +47,6 @@
       "min": 5,
       "max": 30,
       "icon": "../../assets/icons/target_temperature_level.svg"
-    },
-    "fan_mode.ventilation": {
-      "title": {
-        "en": "Fan speed request"
-      },
-      "desc": {
-        "en": "User ventilation step select"
-      },
-      "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "Step 1"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "Step 2"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "Step 3"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "Step 4"
-          }
-        }
-      ],
-      "insights": false
     },
     "measure_temperature": {
       "title": {
@@ -88,78 +83,6 @@
       "max": 60,
       "insights": false,
       "icon": "../../assets//icons/target_temperature_min.svg"
-    },
-    "fan_speed.inlet1": {
-      "title": {
-        "en": "Inlet step 1 speed"          
-      },
-      "desc": {  
-        "en": "Inlet step 1 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.inlet2": {
-      "title": {
-        "en": "Inlet step 2 speed"
-      },
-      "desc": {  
-        "en": "Inlet step 2 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.inlet3": {
-      "title": {
-        "en": "Inlet step 3 speed"
-      },
-      "desc": {
-        "en": "Inlet step 4 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.inlet4": {
-      "title": {
-        "en": "Inlet step 4 speed"
-      },
-      "desc": {  
-        "en": "Inlet step 4 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.exhaust1": {
-      "title": {
-        "en": "Exhaust step 1 speed"
-      },
-      "desc": {
-        "en": "Exhaust step 1 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.exhaust2": {
-      "title": {
-        "en": "Exhaust step 2 speed"          
-      },
-      "desc": {  
-        "en": "Exhaust step 2 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.exhaust3": {
-      "title": {
-        "en": "Exhaust step 3 speed"
-      },
-      "desc": {
-        "en": "Exhaust step 3 speed setup"
-      },
-      "insights": false
-    },
-    "fan_speed.exhaust4": {
-      "title": {
-        "en": "Exhaust step 4 speed"
-      },
-      "desc": {
-        "en": "Exhaust step 4 speed setup"
-      },
-      "insights": false
     },
     "pump_mode.run": {
       "title": {
@@ -402,157 +325,82 @@
     "measure_temperature.ek_supply": {
       "title": {
         "en": "EK supply"
-      },
-      "insights": false
+      }
     },
     "measure_temperature.ek_return": {
       "title": {
         "en": "EK return"
-      },
-      "insights": false
+      }
     },
     "measure_temperature.outdoor": {
       "title": {
         "en": "Outdoor"
-      },
-      "insights": false
+      }
     },
     "measure_temperature.controller": {
       "title": {
         "en": "Controller"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.intake": {
       "title": {
         "en": "Intake"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.inlet_before": {
       "title": {
         "en": "Inlet before heater"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.exhaust": {
       "title": {
         "en": "Exhaust"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.outlet": {
       "title": {
         "en": "Outlet"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.cond": {
       "title": {
         "en": "Condenser"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.evap": {
       "title": {
         "en": "Evaporator"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.inlet_after": {
       "title": {
         "en": "Inlet after heater"
-      },
-      "insights": false
+      }
     },
     "measure_temperature.heater": {
       "title": {
         "en": "Heater"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.extern": {
       "title": {
         "en": "External sensor"
-      },
-      "insights": false
+      }
     },
     "measure_temperature.water_top": {
       "title": {
         "en": "Hot water top"
-      },
-      "insights": false
+      }
     },
     "measure_temperature.water_bottom": {
       "title": {
         "en": "Hot water bottom"
-      },
-      "insights": false
+      }
     }, 
     "measure_temperature.panel": {
       "title": {
         "en": "User panel"
-      },
-      "insights": false
-    },
-    "measure_temperature.aux": {
-      "title": {
-        "en": "AUX temperature"
-      },
-      "insights": false
-    },
-    "fanstep_enum.ventilation": {
-      "title": {
-        "en": "Ventilation set point"
-      },
-      "desc": {
-        "en": "Actual ventilation step set point"
-      },
-      "values": [
-        {
-          "id": "1",
-          "title": {
-            "en": "1"
-          }
-        },
-        {
-          "id": "2",
-          "title": {
-            "en": "2"
-          }
-        },
-        {
-          "id": "3",
-          "title": {
-            "en": "3"
-          }
-        },
-        {
-          "id": "4",
-          "title": {
-            "en": "4"
-          }
-        }
-      ],
-      "insights": false
-    },
-    "fanstep.inlet": {
-      "title": {
-        "en": "Actual ventilation step"
-      },
-      "desc": {
-        "en": "Actual inlet fan speed step"
-      },
-      "insights": false
-    },
-    "fanstep.exhaust": {
-      "title": {
-        "en": "Actual exhaust ventilation step"
-      },
-      "desc": {
-        "en": "Actual exhaust fan speed step"
-      },
-      "insights": false
+      }
     },
     "fanspeed.exhaust": {
       "title": {
@@ -576,8 +424,7 @@
       },
       "desc": {
         "en": "Air heater capacity"
-      },
-      "insights": false
+      }
     },
     "capacity.cenheat": {
       "title": {
@@ -585,8 +432,7 @@
       },
       "desc": {
         "en": "Central heater capacity"
-      },
-      "insights": false
+      }
     }, 
     "capacity.compressor": {
       "title": {
@@ -594,8 +440,7 @@
       },
       "desc": {
         "en": "Compressor capacity"
-      },
-      "insights": false
+      }
     },
     "filter_days.since": {
       "title": {
@@ -603,8 +448,7 @@
       },
       "desc": {
         "en": "Days since last filter change"
-      },
-      "insights": false
+      }
     },
     "filter_days.left": {
       "title": {
@@ -612,8 +456,7 @@
       },
       "desc": {
         "en": "Days left to filter change"
-      },
-      "insights": false
+      }
     },
     "alarm_generic.filter": {
       "title": {
@@ -775,218 +618,6 @@
       "min": 0,
       "max": 1,
       "step": 1
-    },
-    "insights_number.ventilation": {
-      "title": {
-        "en": "Ventilation"
-      },
-      "units": {
-        "en": "Step"
-      },
-      "decimals": 0,
-      "min": 0,
-      "max": 4,
-      "step": 1
-    },
-    "insights_dec_number.air_heater_capacity": {
-      "title": {
-        "en": "Air heater capacity"
-      },
-      "units": "%", 
-      "decimals": 1,
-      "min": 0,  
-      "max": 100, 
-      "step": 0.01
-    },
-    "insights_dec_number.central_heater_capacity": {
-      "title": {
-        "en": "Central heater capacity"
-      },
-      "units": "%",
-      "decimals": 1,
-      "min": 0,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.compressor_capacity": {
-      "title": {
-        "en": "Compressor capacity" 
-      },
-      "units": "%",
-      "decimals": 1,
-      "min": 0,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T0_controller": {
-      "title": {
-        "en": "T0 Controller board temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T1_intake": {
-      "title": {
-        "en": "T1 Intake temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },  
-    "insights_dec_number.T2_inlet": {
-      "title": {
-        "en": "T2 Inlet temperature (before heater)"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T3_exhaust": {
-      "title": {
-        "en": "T3 Exhaust temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T4_outlet": {
-      "title": {
-        "en": "T4 Outlet temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T5_cond": {
-      "title": {
-        "en": "T5 Condenser temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T6_evap": {
-      "title": {
-        "en": "T6 Evaporator temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T7_inlet": {
-      "title": {
-        "en": "T7 Inlet temperature (after heater)"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T8_outdoor": {
-      "title": {
-        "en": "T8 Outdoor temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T9_heater": {
-      "title": {
-        "en": "T9 Heater temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T10_extern": {
-      "title": {
-        "en": "T10 External room temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T11_water_top": {
-      "title": {
-        "en": "T11 Hot water top temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T12_water_bottom": {
-      "title": {
-        "en": "T12 Hot water bottom temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T13_return": {
-      "title": {
-        "en": "T13 EK return temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T14_supply": {
-      "title": {
-        "en": "T14 EK supply temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T15_room": {
-      "title": {
-        "en": "T15 User panel room temperature"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
-    },
-    "insights_dec_number.T16_aux": {
-      "title": {
-        "en": "T16 Aux temperature (sacrificial anode)"
-      },
-      "units": "°C",
-      "decimals": 2,
-      "min": -100,
-      "max": 100,
-      "step": 0.01
     }
   },
   "platforms": [

@@ -75,8 +75,12 @@ export class ModbusApi {
     });
   }
 
-  async _disconnect() {
-    await this._socket?.end();
+  _disconnect() {
+
+    this._socket?.end();
+    this._clearSocketTimeout();
+    this._socket = undefined;
+    this._client = undefined;
   }
 
   _addSocketTimeout() {

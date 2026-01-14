@@ -3,11 +3,12 @@
   "title": {
     "en": "Number"
   },
-  "decimals": 0,
-  "min": -10,
-  "step": 100,
   "insights": true,
   "getable": true,
   "setable": false,
-  "uiComponent": null
+  "min": 1,
+  "max": 4,
+  "decimals": 0,
+  "uiComponent": "sensor",
+  "icon": "/assets/icons/fan_speed.svg"
 }

@@ -7,6 +7,7 @@ export const ID_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
   'App.VersionMinor',
   'App.VersionRelease',
   'Control.Type',
+  'AirQual.CO2_Enable',
 ]);
 
 export const OPERATION_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
@@ -23,6 +24,14 @@ export const OPERATION_REGISTERS: Register.Queries = Register.filter(REGISTERS, 
 //  'Program.UserFuncSet',
 //  'Program.UserTimeSet',
   'Control.PowerSave',
+  'AirFlow.InletSpd_1',
+  'AirFlow.InletSpd_2',
+  'AirFlow.InletSpd_3',
+  'AirFlow.InletSpd_4',
+  'AirFlow.ExhaustSpd_1',
+  'AirFlow.ExhaustSpd_2',
+  'AirFlow.ExhaustSpd_3',
+  'AirFlow.ExhaustSpd_4',
 ]);
 
 export const SENSOR_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
@@ -42,6 +51,7 @@ export const SENSOR_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
   'Input.T13_Return',
   'Input.T14_Supply',
   'Input.T15_Room',
+  'Input.T16',
   'Input.RH',
   'Input.CO2',
   'Control.RunAct',
@@ -62,6 +72,8 @@ export const SENSOR_REGISTERS: Register.Queries = Register.filter(REGISTERS, [
   'Output.AirHeatCap',
   'Output.CenHeatCap',
   'Output.CprCap',
+  'AirFlow.VentSet',
+  'AirFlow.InletAct',
   'AirFlow.SinceFiltDay',
   'AirFlow.ToFiltDay',
 ]);
@@ -96,67 +108,71 @@ export const CAPABILITIES: CapacityMap = new Map([
     type: ValueType.Number,
   }],
   [ 'Input.T0_Controller', {
-    name: 'measure_temperature.controller' ,
+    name: [ 'measure_temperature.controller', 'insights_dec_number.T0_controller' ],
     type: ValueType.Number,
   }],
   [ 'Input.T1_Intake', {
-    name: 'measure_temperature.intake',
+    name: [ 'measure_temperature.intake', 'insights_dec_number.T1_intake' ],
     type: ValueType.Number,
   }],
   [ 'Input.T2_Inlet', {
-    name: 'measure_temperature.inlet_before',
+    name: [ 'measure_temperature.inlet_before', 'insights_dec_number.T2_inlet' ],
     type: ValueType.Number,
   }],
   [ 'Input.T3_Exhaust', {
-    name: 'measure_temperature.exhaust',
+    name: [ 'measure_temperature.exhaust', 'inisights_dec_number.T3_exhaust' ],
     type: ValueType.Number,
   }],
   [ 'Input.T4_Outlet', {
-    name: 'measure_temperature.outlet',
+    name: [ 'measure_temperature.outlet', 'insights_dec_number.T4_outlet' ],
     type: ValueType.Number,
   }],
   [ 'Input.T5_Cond', {
-    name: 'measure_temperature.cond',
+    name: [ 'measure_temperature.cond', 'insights_dec_number.T5_cond' ],
     type: ValueType.Number,
   }],
   [ 'Input.T6_Evap', {
-    name: 'measure_temperature.evap',
+    name: [ 'measure_temperature.evap', 'insights_dec_number.T6_evap' ],
     type: ValueType.Number,
   }],
   [ 'Input.T7_Inlet', {
-    name: 'measure_temperature.inlet_after',
+    name: [ 'measure_temperature.inlet_after', 'insights_dec_number.T7_inlet' ],
     type: ValueType.Number,
   }],
   [ 'Input.T8_Outdoor', {
-    name: 'measure_temperature.outdoor',
+    name: [ 'measure_temperature.outdoor', 'insights_dec_number.T8_outdoor' ],
     type: ValueType.Number,
   }],
   [ 'Input.T9_Heater', {
-    name: 'measure_temperature.heater',
+    name: [ 'measure_temperature.heater', 'insights_dec_number.T9_heater' ],
     type: ValueType.Number,
   }],
   [ 'Input.T10_Extern', {
-    name: 'measure_temperature.extern',
+    name: [ 'measure_temperature.extern', 'insights_dec_number.T10_extern' ],
     type: ValueType.Number,
   }],
   [ 'Input.T11_Top', {
-    name: [ 'measure_temperature.water', 'measure_temperature.water_current', 'measure_temperature.water_top' ],
+    name: [ 'measure_temperature.water', 'measure_temperature.water_current', 'measure_temperature.water_top', 'insights_dec_number.T11_water_top' ],
     type: ValueType.Number,
   }],
   [ 'Input.T12_Bottom', {
-    name: 'measure_temperature.water_bottom',
+    name: [ 'measure_temperature.water_bottom', 'insights_dec_number.T12_water_bottom' ],
     type: ValueType.Number,
   }],
   [ 'Input.T13_Return', {
-    name: 'measure_temperature.ek_return',
+    name: [ 'measure_temperature.ek_return', 'insights_dec_number.T13_return' ],
     type: ValueType.Number,
   }],
   [ 'Input.T14_Supply', {
-    name: 'measure_temperature.ek_supply',
+    name: [ 'measure_temperature.ek_supply', 'insights_dec_number.T14_supply' ],
     type: ValueType.Number,
   }],
   [ 'Input.T15_Room', {
-    name: 'measure_temperature.panel',
+    name: [ 'measure_temperature.panel', 'insights_dec_number.T15_room' ],
+    type: ValueType.Number,
+  }],
+  [ 'Input.T16', {
+    name: [ 'measure_temperature.aux', 'insights_dec_number.T16_aux'],
     type: ValueType.Number,
   }],
   [ 'Input.RH', {
@@ -173,24 +189,36 @@ export const CAPABILITIES: CapacityMap = new Map([
     factor: 100,
     update: 'nl_target_humidity',
   }],
-  [ 'Output.ExhaustSpeed', {
-    name: 'fanspeed.exhaust',
+  [ 'AirFlow.VentSet', {
+    name: 'fanstep_enum.ventilation',
+    type: ValueType.State,
+  }],
+  [ 'AirFlow.InletAct', {
+    name: 'fanstep.inlet',
+    type: ValueType.Number,
+  }],
+  [ 'AirFlow.ExhaustAct', {
+    name: 'fanstep.exhaust',
     type: ValueType.Number,
   }],
   [ 'Output.InletSpeed', {
     name: 'fanspeed.inlet',
     type: ValueType.Number,
   }],
+  [ 'Output.ExhaustSpeed', {
+    name: 'fanspeed.exhaust',
+    type: ValueType.Number,
+  }],
   [ 'Output.AirHeatCap', {
-    name: 'capacity.airheat',
+    name: [ 'capacity.airheat', 'insights_dec_number.air_heater_capacity' ],
     type: ValueType.Number,
   }],
   [ 'Output.CenHeatCap', {
-    name: 'capacity.cenheat',
+    name: [ 'capacity.cenheat', 'insights_dec_number.central_heater_capacity' ],
     type: ValueType.Number,
   }],
   [ 'Output.CprCap', {
-    name: 'capacity.compressor',
+    name: [ 'capacity.compressor', 'insights_dec_number.compressor_capacity' ],
     type: ValueType.Number,
   }],
   [ 'AirFlow.SinceFiltDay', {
@@ -223,6 +251,7 @@ export const CAPABILITIES: CapacityMap = new Map([
   [ 'Control.Type', {
     name: [ 'cts602_type', 'heatpump_typecode' ],
     type: ValueType.State,
+    update: 'heatpump_typecode',
   }],
   [ 'Control.RunSet', {
     name: 'pump_mode.run',
@@ -239,6 +268,11 @@ export const CAPABILITIES: CapacityMap = new Map([
     name: 'pump_mode.mode',
     type: ValueType.State,
     update: 'pump_mode.mode',
+  }],
+  [ 'Control.VentSet', {
+    name: [ 'fan_mode.ventilation', 'fanstep_enum.ventilation' ],
+    type: ValueType.State,
+    update: 'fan_mode.ventilation',
   }],
   [ 'Control.ModeAct', {
     name: 'heatpump_mode',
@@ -261,17 +295,73 @@ export const CAPABILITIES: CapacityMap = new Map([
     type: ValueType.State,
     update: 'pump_mode.power_save',
   }],
+  [ 'AirFlow.InletSpd_1', {
+    name: 'fan_speed.inlet1',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.inlet1',
+  }],
+  [ 'AirFlow.InletSpd_2', {
+    name: 'fan_speed.inlet2',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.inlet2',
+  }],
+  [ 'AirFlow.InletSpd_3', {
+    name: 'fan_speed.inlet3',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.inlet3',
+  }],
+  [ 'AirFlow.InletSpd_4', {
+    name: 'fan_speed.inlet4',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.inlet4',
+  }],
+  [ 'AirFlow.ExhaustSpd_1', {
+    name: 'fan_speed.exhaust1',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.exhaust1',
+  }],
+  [ 'AirFlow.ExhaustSpd_2', {
+    name: 'fan_speed.exhaust2',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.exhaust2',
+  }],
+  [ 'AirFlow.ExhaustSpd_3', {
+    name: 'fan_speed.exhaust3',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.exhaust3',
+  }],
+  [ 'AirFlow.ExhaustSpd_4', {
+    name: 'fan_speed.exhaust4',
+    type: ValueType.Number,
+    factor: 100,
+    update: 'fan_speed.exhaust4',
+  }],
   [ 'App.VersionMajor', {
     name: 'hidden_string.version_major',
     type: ValueType.Parser,
+    update: 'hidden_string.version_major',
   }],
   [ 'App.VersionMinor', {
     name: 'hidden_string.version_minor',
     type: ValueType.Parser,
+    update: 'hidden_string.version_minor',
   }],
   [ 'App.VersionRelease', {
     name: 'hidden_string.version_release',
     type: ValueType.Parser,
+    update: 'hidden_string.version_release',
+  }],
+  [ 'AirQual.CO2_Enable', {
+    name: 'hidden_number.co2_enable',
+    type: ValueType.Number,
+    update: 'hidden_number.co2_enable',
   }],
 ]);
 
@@ -295,6 +385,60 @@ export const newUpdateMap = ((): UpdateMap => {
     [ 'nl_target_humidity', {
       id: 'AirQual.RH_LimLo',
       description: 'target humidity',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_mode.ventilation', {
+      id: 'Control.VentSet',
+      description: 'User ventilation step select',
+      queries: OPERATION_REGISTERS,
+      capability: 'fanstep_enum.ventilation'
+    }],
+    [ 'fan_speed.inlet1', {
+      id: 'AirFlow.InletSpd_1',
+      description: 'Inlet step 1 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.inlet2', {
+      id: 'AirFlow.InletSpd_2',
+      description: 'Inlet step 2 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.inlet3', {
+      id: 'AirFlow.InletSpd_3',
+      description: 'Inlet step 3 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.inlet4', {
+      id: 'AirFlow.InletSpd_4',
+      description: 'Inlet step 4 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.exhaust1', {
+      id: 'AirFlow.ExaustSpd_1',
+      description: 'Exhaust step 1 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.exhaust2', {
+      id: 'AirFlow.ExaustSpd_2',
+      description: 'Exhaust step 2 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.exhaust3', {
+      id: 'AirFlow.ExaustSpd_3',
+      description: 'Exhaust step 3 speed setup',
+      queries: OPERATION_REGISTERS,
+      factor: 100,
+    }],
+    [ 'fan_speed.exhaust4', {
+      id: 'AirFlow.ExaustSpd_4',
+      description: 'Exhaust step 4 speed setup',
       queries: OPERATION_REGISTERS,
       factor: 100,
     }],

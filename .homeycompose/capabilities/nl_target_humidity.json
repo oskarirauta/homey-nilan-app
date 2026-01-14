@@ -12,7 +12,7 @@
     "en": "%"
   },
   "uiComponent": "slider",
-  "insights": true,
+  "insights": false,
   "min": 0,
   "max": 0.45,
   "step": 0.01,

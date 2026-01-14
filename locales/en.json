@@ -18,6 +18,7 @@
       "unitid_label_cts602": "Enter CTS602 Unit ID (default: 30):",
       "unitid_label_cts700": "Enter CTS700 Unit ID (default: 1):"
     },
+    "externalheater_label": "Use external heater, such as solar panels",
     "submit": "Submit",
     "valid_ip_address": "Enter a valid IP address (xxx.xxx.xxx.xxx)",
     "connection_refused": "Connection is refused (__uri__)",

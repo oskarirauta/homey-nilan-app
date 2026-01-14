@@ -42,6 +42,22 @@ module.exports = class CTS700Device extends Homey.Device {
     this.log('device added');
   }
 
+  onUninit() {
+   
+    this._api._onUpdateValues = undefined;
+    this.clearFetchTimeout();
+    this.disconnect();
+    this.log('device uninitialized');
+  }
+    
+  onDeleted() {
+  
+    this._api._onUpdateValues = undefined;
+    this.clearFetchTimeout();
+    this.disconnect();
+    this.log('device deleted');
+  }
+
   async disconnect(): Promise<void> {
     this.clearFetchTimeout();
     if (this._api) {
@@ -50,11 +66,6 @@ module.exports = class CTS700Device extends Homey.Device {
       }
       await this._api._disconnect();
     }
-  }
-
-  onDeleted(): void {
-    this.disconnect();
-    this.log('device deleted');
   }
 
   async ready(): Promise<void> {
