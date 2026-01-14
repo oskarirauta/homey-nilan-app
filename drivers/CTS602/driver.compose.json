@@ -397,7 +397,8 @@
     "measure_temperature.water_current": {
       "title": {
         "en": "Water"
-      }
+      },
+      "insights": false
     },
     "measure_temperature.ek_supply": {
       "title": {
