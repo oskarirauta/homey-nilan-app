@@ -263,8 +263,9 @@ module.exports = class CTS700Device extends Homey.Device {
     if ((override === undefined || override === false) && (mapping.update !== undefined) && (this.updates.has(mapping.update)) && (this.updates.get(mapping.update)!.timeout !== undefined))
       return;
 
-    const factor = mapping.factor || 1;
-    const toValue = Math.round(10 * value / factor) * 0.1
+    const factor = mapping.factor || 0.1;
+    var toValue = value * factor;
+    toValue = Number(toValue.toFixed(1));
 
     if (typeof(mapping.name) === 'string') {
       await this.setCapabilityValue(mapping.name,

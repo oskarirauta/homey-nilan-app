@@ -28,6 +28,7 @@ export const CAPABILITIES: CapacityMap = new Map([
     name: 'operational_state.systemworkmode',
     type: ValueType.State,
     max: 5,
+    factor: 1
   }],
   [ 'prmUserTemperature', {
     name: 'measure_temperature.user',
@@ -36,14 +37,17 @@ export const CAPABILITIES: CapacityMap = new Map([
   [ 'prmUserFanSpeed', {
     name: 'fanspeed.user',
     type: ValueType.Number,
+    factor: 1
   }],
   [ 'prmFilterInlet_PassDays', {
     name: 'filter_days.inlet',
     type: ValueType.Parser,
+    factor: 1
   }],
   [ 'prmFilterExhaust_PassDays', {
     name: 'filter_days.outlet',
     type: ValueType.Parser,
+    factor: 1
   }],
   [ 'VAL_DEV_RH_SENSOR', {
     name: 'measure_humidity',
@@ -53,6 +57,7 @@ export const CAPABILITIES: CapacityMap = new Map([
     name: 'operational_state.external',
     type: ValueType.State,
     max: 9,
+    factor: 1
   }],
   [ 'prmTmasterSensor', {
     name: 'measure_temperature.master',
@@ -94,6 +99,7 @@ export const CAPABILITIES: CapacityMap = new Map([
     name: 'operational_state.regulation',
     type: ValueType.State,
     max: 5,
+    factor: 1
   }],
 ]);
 
