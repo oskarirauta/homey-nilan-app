@@ -1,5 +1,8 @@
 {
   "1.2.1": {
     "en": "Fixed number scaling regarding CTS700"
+  },
+  "1.2.2": {
+    "en": "Fixed humidity value factor."
   }
 }
