@@ -52,6 +52,7 @@ export const CAPABILITIES: CapacityMap = new Map([
   [ 'VAL_DEV_RH_SENSOR', {
     name: 'measure_humidity',
     type: ValueType.Number,
+    factor: 1
   }],
   [ 'DRV_EXT_LN_STATE_Heater', {
     name: 'operational_state.external',
