@@ -18,6 +18,9 @@
     {
       "name": "temperature",
       "type": "range",
+      "title": {
+        "en": "Central heating temperature"
+      },
       "min": 5,
       "max": 50,
       "step": 0.5,

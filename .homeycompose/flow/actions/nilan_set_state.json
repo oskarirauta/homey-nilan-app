@@ -18,6 +18,9 @@
     {
       "name": "state",
       "type": "dropdown",
+      "title": {
+        "en": "State"
+      },
       "values": [
         {
           "id": "0",

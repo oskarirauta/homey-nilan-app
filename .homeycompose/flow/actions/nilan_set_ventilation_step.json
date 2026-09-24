@@ -18,6 +18,9 @@
     {
       "name": "step",
       "type": "dropdown",
+      "title": {
+        "en": "Ventilation step"
+      },
       "values": [
         {
           "id": "1",

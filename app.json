@@ -67,6 +67,7 @@
     }
   },
   "homeyCommunityTopicId": 100504,
+  "support": "mailto:kokholm@gmail.com",
   "source": "https://github.com/oskarirauta/homey-nilan-app",
   "bugs": {
     "url": "https://github.com/oskarirauta/homey-nilan-app/issues"
@@ -93,6 +94,9 @@
           {
             "name": "mode",
             "type": "dropdown",
+            "title": {
+              "en": "Air exchange mode"
+            },
             "values": [
               {
                 "id": "0",
@@ -136,6 +140,9 @@
           {
             "name": "temperature",
             "type": "range",
+            "title": {
+              "en": "Central heating temperature"
+            },
             "min": 5,
             "max": 50,
             "step": 0.5,
@@ -165,6 +172,9 @@
           {
             "name": "mode",
             "type": "dropdown",
+            "title": {
+              "en": "Operation mode"
+            },
             "values": [
               {
                 "id": "0",
@@ -220,6 +230,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "Power saving"
+            },
             "values": [
               {
                 "id": "0",
@@ -257,6 +270,9 @@
           {
             "name": "temperature",
             "type": "range",
+            "title": {
+              "en": "Room temperature"
+            },
             "min": 5,
             "max": 30,
             "step": 0.5,
@@ -286,6 +302,9 @@
           {
             "name": "state",
             "type": "dropdown",
+            "title": {
+              "en": "State"
+            },
             "values": [
               {
                 "id": "0",
@@ -323,6 +342,9 @@
           {
             "name": "humidity",
             "type": "range",
+            "title": {
+              "en": "Target humidity"
+            },
             "min": 0,
             "max": 0.45,
             "step": 0.01,
@@ -352,6 +374,9 @@
           {
             "name": "step",
             "type": "dropdown",
+            "title": {
+              "en": "Ventilation step"
+            },
             "values": [
               {
                 "id": "1",
@@ -401,6 +426,9 @@
           {
             "name": "temperature",
             "type": "range",
+            "title": {
+              "en": "Water temperature"
+            },
             "min": 5,
             "max": 65,
             "step": 0.5,

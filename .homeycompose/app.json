@@ -66,6 +66,7 @@
     }
   },
   "homeyCommunityTopicId": 100504,
+  "support": "mailto:kokholm@gmail.com",
   "source": "https://github.com/oskarirauta/homey-nilan-app",
   "bugs": {
     "url": "https://github.com/oskarirauta/homey-nilan-app/issues"

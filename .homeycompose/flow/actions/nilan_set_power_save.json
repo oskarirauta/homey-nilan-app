@@ -18,6 +18,9 @@
     {
       "name": "state",
       "type": "dropdown",
+      "title": {
+        "en": "Power saving"
+      },
       "values": [
         {
           "id": "0",

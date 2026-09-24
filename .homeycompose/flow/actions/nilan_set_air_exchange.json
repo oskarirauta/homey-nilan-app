@@ -18,6 +18,9 @@
     {
       "name": "mode",
       "type": "dropdown",
+      "title": {
+        "en": "Air exchange mode"
+      },
       "values": [
         {
           "id": "0",

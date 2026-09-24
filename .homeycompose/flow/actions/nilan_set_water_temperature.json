@@ -18,6 +18,9 @@
     {
       "name": "temperature",
       "type": "range",
+      "title": {
+        "en": "Water temperature"
+      },
       "min": 5,
       "max": 65,
       "step": 0.5,

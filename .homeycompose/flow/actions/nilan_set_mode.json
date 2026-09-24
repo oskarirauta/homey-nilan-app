@@ -18,6 +18,9 @@
     {
       "name": "mode",
       "type": "dropdown",
+      "title": {
+        "en": "Operation mode"
+      },
       "values": [
         {
           "id": "0",
