@@ -4,7 +4,7 @@
     "en": "Set air exchange to ..."
   },
   "titleFormatted": {
-    "en": "Set air exchange to to [[mode]]"
+    "en": "Set air exchange to [[mode]]"
   },
   "hint": {
     "en": "Change air exchange mode"
@@ -13,7 +13,7 @@
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=NilanModbus"
+      "filter": "driver_id=CTS602&capabilities=pump_mode.air_exchange"
     },
     {
       "name": "mode",

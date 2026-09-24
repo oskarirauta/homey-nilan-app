@@ -1,25 +1,25 @@
 {
-  "id": "nilan_set_water_temperature",
+  "id": "nilan_set_central_heating_temperature",
   "title": {
-    "en": "Set water temperature"
+    "en": "Set central heating temperature"
   },
   "titleFormatted": {
-    "en": "Set water temperature [[temperature]]"
+    "en": "Set central heating temperature to [[temperature]]"
   },
   "hint": {
-    "en": "Set water temperature."
+    "en": "Set the central heating temperature setpoint."
   },
   "args": [
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=CTS602&capabilities=target_temperature.water"
+      "filter": "driver_id=CTS602&capabilities=target_temperature.ek"
     },
     {
       "name": "temperature",
       "type": "range",
       "min": 5,
-      "max": 65,
+      "max": 50,
       "step": 0.5,
       "label": "°C",
       "labelMultiplier": 1,

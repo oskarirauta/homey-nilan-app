@@ -1,0 +1,29 @@
+{
+  "id": "nilan_set_target_humidity",
+  "title": {
+    "en": "Set target humidity"
+  },
+  "titleFormatted": {
+    "en": "Set target humidity to [[humidity]]"
+  },
+  "hint": {
+    "en": "Set the lower relative humidity limit."
+  },
+  "args": [
+    {
+      "name": "device",
+      "type": "device",
+      "filter": "driver_id=CTS602&capabilities=nl_target_humidity"
+    },
+    {
+      "name": "humidity",
+      "type": "range",
+      "min": 0,
+      "max": 0.45,
+      "step": 0.01,
+      "label": "%",
+      "labelMultiplier": 100,
+      "labelDecimals": 0
+    }
+  ]
+}

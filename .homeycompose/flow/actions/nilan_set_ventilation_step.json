@@ -1,52 +1,46 @@
 {
-  "id": "nilan_set_mode",
+  "id": "nilan_set_ventilation_step",
   "title": {
-    "en": "Set mode to ..."
+    "en": "Set ventilation step"
   },
   "titleFormatted": {
-    "en": "Set operation mode to [[mode]]"
+    "en": "Set ventilation step to [[step]]"
   },
   "hint": {
-    "en": "Change operation mode"
+    "en": "Set the ventilation fan step from 1 (low) to 4 (boost)."
   },
   "args": [
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=CTS602&capabilities=pump_mode.mode"
+      "filter": "driver_id=CTS602&capabilities=fanstep_enum.ventilation"
     },
     {
-      "name": "mode",
+      "name": "step",
       "type": "dropdown",
       "values": [
         {
-          "id": "0",
-          "label": {
-            "en": "Off"
-          }
-        },
-        {
           "id": "1",
           "label": {
-            "en": "Heat"
+            "en": "1"
           }
         },
         {
           "id": "2",
           "label": {
-            "en": "Cool"
+            "en": "2"
           }
         },
         {
           "id": "3",
           "label": {
-            "en": "Auto"
+            "en": "3"
           }
         },
         {
           "id": "4",
           "label": {
-            "en": "Service"
+            "en": "4"
           }
         }
       ]

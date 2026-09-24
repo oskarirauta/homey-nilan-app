@@ -48,6 +48,14 @@
       <table cellspacing="0" cellpadding="0" width="100%" style="margin-top: 24px; margin-bottom: 4px;">
         <tr>
           <td>
+            <input class="homey-form-input " id="co2sensor_enabled" type="checkbox" name="co2sensor_enabled" value="1" />
+          </td>
+          <td>
+            <label class="homey-form-label" style="margin-top: 0px;" for="co2sensor_enabled" data-i18n="pair.co2sensor_label"></label>
+          </td>
+        </tr>
+        <tr>
+          <td>
             <input class="homey-form-input " id="externalheater_enabled" type="checkbox" name="externalheater_enabled" value="1" />
           </td>
           <td>
@@ -74,8 +82,9 @@
     const port = document.getElementById("port").value;
     const unitid = document.getElementById("unitid").value;
     const externalheater = document.getElementById("externalheater_enabled").checked;
+    const co2sensor = document.getElementById("co2sensor_enabled").checked;
 
-    Homey.emit('connection_details_entered', { ipaddress, port, unitid, externalheater }, (err, result) => {
+    Homey.emit('connection_details_entered', { ipaddress, port, unitid, externalheater, co2sensor }, (err, result) => {
       Homey.hideLoadingOverlay();
       if (err) {
         Homey.alert(err, 'error', () => {

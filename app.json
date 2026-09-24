@@ -1,7 +1,7 @@
 {
   "_comment": "This file is generated. Please edit .homeycompose/app.json instead.",
   "id": "dk.nilan",
-  "version": "1.2.2",
+  "version": "1.3.0",
   "compatibility": ">=12.9.0",
   "sdk": 3,
   "platforms": [
@@ -79,7 +79,7 @@
           "en": "Set air exchange to ..."
         },
         "titleFormatted": {
-          "en": "Set air exchange to to [[mode]]"
+          "en": "Set air exchange to [[mode]]"
         },
         "hint": {
           "en": "Change air exchange mode"
@@ -88,7 +88,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=NilanModbus"
+            "filter": "driver_id=CTS602&capabilities=pump_mode.air_exchange"
           },
           {
             "name": "mode",
@@ -117,6 +117,35 @@
         ]
       },
       {
+        "id": "nilan_set_central_heating_temperature",
+        "title": {
+          "en": "Set central heating temperature"
+        },
+        "titleFormatted": {
+          "en": "Set central heating temperature to [[temperature]]"
+        },
+        "hint": {
+          "en": "Set the central heating temperature setpoint."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=CTS602&capabilities=target_temperature.ek"
+          },
+          {
+            "name": "temperature",
+            "type": "range",
+            "min": 5,
+            "max": 50,
+            "step": 0.5,
+            "label": "°C",
+            "labelMultiplier": 1,
+            "labelDecimals": 1
+          }
+        ]
+      },
+      {
         "id": "nilan_set_mode",
         "title": {
           "en": "Set mode to ..."
@@ -131,7 +160,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=NilanModbus"
+            "filter": "driver_id=CTS602&capabilities=pump_mode.mode"
           },
           {
             "name": "mode",
@@ -186,7 +215,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=NilanModbus"
+            "filter": "driver_id=CTS602&capabilities=pump_mode.power_save"
           },
           {
             "name": "state",
@@ -209,6 +238,35 @@
         ]
       },
       {
+        "id": "nilan_set_room_temperature",
+        "title": {
+          "en": "Set room temperature"
+        },
+        "titleFormatted": {
+          "en": "Set room temperature to [[temperature]]"
+        },
+        "hint": {
+          "en": "Set the indoor temperature setpoint."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=CTS602&capabilities=target_temperature"
+          },
+          {
+            "name": "temperature",
+            "type": "range",
+            "min": 5,
+            "max": 30,
+            "step": 0.5,
+            "label": "°C",
+            "labelMultiplier": 1,
+            "labelDecimals": 1
+          }
+        ]
+      },
+      {
         "id": "nilan_set_state",
         "title": {
           "en": "Set state to ..."
@@ -223,7 +281,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=NilanModbus"
+            "filter": "driver_id=CTS602&capabilities=pump_mode.run"
           },
           {
             "name": "state",
@@ -246,6 +304,84 @@
         ]
       },
       {
+        "id": "nilan_set_target_humidity",
+        "title": {
+          "en": "Set target humidity"
+        },
+        "titleFormatted": {
+          "en": "Set target humidity to [[humidity]]"
+        },
+        "hint": {
+          "en": "Set the lower relative humidity limit."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=CTS602&capabilities=nl_target_humidity"
+          },
+          {
+            "name": "humidity",
+            "type": "range",
+            "min": 0,
+            "max": 0.45,
+            "step": 0.01,
+            "label": "%",
+            "labelMultiplier": 100,
+            "labelDecimals": 0
+          }
+        ]
+      },
+      {
+        "id": "nilan_set_ventilation_step",
+        "title": {
+          "en": "Set ventilation step"
+        },
+        "titleFormatted": {
+          "en": "Set ventilation step to [[step]]"
+        },
+        "hint": {
+          "en": "Set the ventilation fan step from 1 (low) to 4 (boost)."
+        },
+        "args": [
+          {
+            "name": "device",
+            "type": "device",
+            "filter": "driver_id=CTS602&capabilities=fanstep_enum.ventilation"
+          },
+          {
+            "name": "step",
+            "type": "dropdown",
+            "values": [
+              {
+                "id": "1",
+                "label": {
+                  "en": "1"
+                }
+              },
+              {
+                "id": "2",
+                "label": {
+                  "en": "2"
+                }
+              },
+              {
+                "id": "3",
+                "label": {
+                  "en": "3"
+                }
+              },
+              {
+                "id": "4",
+                "label": {
+                  "en": "4"
+                }
+              }
+            ]
+          }
+        ]
+      },
+      {
         "id": "nilan_set_water_temperature",
         "title": {
           "en": "Set water temperature"
@@ -260,7 +396,7 @@
           {
             "name": "device",
             "type": "device",
-            "filter": "driver_id=NilanModbus"
+            "filter": "driver_id=CTS602&capabilities=target_temperature.water"
           },
           {
             "name": "temperature",
@@ -289,6 +425,16 @@
       "class": "heatpump",
       "capabilities": [],
       "capabilitiesOptions": {
+        "measure_power": {
+          "title": {
+            "en": "Estimated power"
+          }
+        },
+        "meter_power": {
+          "title": {
+            "en": "Estimated energy"
+          }
+        },
         "target_temperature": {
           "title": {
             "en": "Indoor"
@@ -1028,13 +1174,13 @@
             "en": "Electric heater"
           },
           "desc": {
-            "en": "0 = off, >= = heating power level"
+            "en": "0 = off, 1–7 = active heating elements"
           },
           "units": {
             "en": "Level"
           },
           "hint": {
-            "en": "0 = off, >0 = heating power level"
+            "en": "0 = off, 1–7 = active heating elements"
           },
           "decimals": 0,
           "min": 0,
@@ -1349,6 +1495,146 @@
               },
               "hint": {
                 "en": "Polling interval (seconds)"
+              }
+            }
+          ]
+        },
+        {
+          "type": "group",
+          "label": {
+            "en": "Estimated electricity use"
+          },
+          "children": [
+            {
+              "id": "power-compressor",
+              "type": "number",
+              "label": {
+                "en": "Compressor power"
+              },
+              "value": 700,
+              "min": 0,
+              "max": 10000,
+              "units": {
+                "en": "W"
+              },
+              "hint": {
+                "en": "Nominal input power used only for the estimated power and energy values."
+              }
+            },
+            {
+              "id": "power-fan-step-1",
+              "type": "number",
+              "label": {
+                "en": "Fans, ventilation step 1"
+              },
+              "value": 30,
+              "min": 0,
+              "max": 2000,
+              "units": {
+                "en": "W"
+              }
+            },
+            {
+              "id": "power-fan-step-2",
+              "type": "number",
+              "label": {
+                "en": "Fans, ventilation step 2"
+              },
+              "value": 50,
+              "min": 0,
+              "max": 2000,
+              "units": {
+                "en": "W"
+              }
+            },
+            {
+              "id": "power-fan-step-3",
+              "type": "number",
+              "label": {
+                "en": "Fans, ventilation step 3"
+              },
+              "value": 70,
+              "min": 0,
+              "max": 2000,
+              "units": {
+                "en": "W"
+              }
+            },
+            {
+              "id": "power-fan-step-4",
+              "type": "number",
+              "label": {
+                "en": "Fans, ventilation step 4"
+              },
+              "value": 100,
+              "min": 0,
+              "max": 2000,
+              "units": {
+                "en": "W"
+              }
+            },
+            {
+              "id": "power-hot-water-heater",
+              "type": "number",
+              "label": {
+                "en": "Water-heating electric heater power"
+              },
+              "value": 1000,
+              "min": 0,
+              "max": 20000,
+              "units": {
+                "en": "W"
+              },
+              "hint": {
+                "en": "Electrical input power of the domestic hot-water tank's heating element."
+              }
+            },
+            {
+              "id": "power-central-heater-element",
+              "type": "number",
+              "label": {
+                "en": "Central-heating element"
+              },
+              "value": 2000,
+              "min": 0,
+              "max": 20000,
+              "units": {
+                "en": "W"
+              },
+              "hint": {
+                "en": "Nominal power of one heating element. Estimated power is this value multiplied by the active heater level reported by CTS602."
+              }
+            },
+            {
+              "id": "power-water-pump",
+              "type": "number",
+              "label": {
+                "en": "Central-heating circulation pump"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 2000,
+              "units": {
+                "en": "W"
+              },
+              "hint": {
+                "en": "Leave at 0 W if the pump is external or its consumption is unknown."
+              }
+            },
+            {
+              "id": "power-external-heat-source",
+              "type": "number",
+              "label": {
+                "en": "External heat source"
+              },
+              "value": 0,
+              "min": 0,
+              "max": 50000,
+              "units": {
+                "en": "W"
+              },
+              "hint": {
+                "en": "CTS602 only reports a heat request. Leave at 0 W unless the connected source's electrical input is known."
               }
             }
           ]
@@ -1744,7 +2030,7 @@
               "id": "device-ip",
               "type": "text",
               "label": {
-                "en": "Port"
+                "en": "IP address"
               },
               "value": "0.0.0.0",
               "hint": {
@@ -2653,10 +2939,10 @@
       "type": "enum",
       "uiComponent": "sensor",
       "title": {
-        "en": "External heater state"
+        "en": "Central-heating level"
       },
       "desc": {
-        "en": "Electical heater state"
+        "en": "Number of active central-heating elements"
       },
       "values": [
         {
@@ -2668,7 +2954,43 @@
         {
           "id": "1",
           "title": {
-            "en": "On"
+            "en": "1 element"
+          }
+        },
+        {
+          "id": "2",
+          "title": {
+            "en": "2 elements"
+          }
+        },
+        {
+          "id": "3",
+          "title": {
+            "en": "3 elements"
+          }
+        },
+        {
+          "id": "4",
+          "title": {
+            "en": "4 elements"
+          }
+        },
+        {
+          "id": "5",
+          "title": {
+            "en": "5 elements"
+          }
+        },
+        {
+          "id": "6",
+          "title": {
+            "en": "6 elements"
+          }
+        },
+        {
+          "id": "7",
+          "title": {
+            "en": "7 elements"
           }
         }
       ],
@@ -2736,7 +3058,7 @@
     },
     "fanstep_enum": {
       "type": "enum",
-      "uiComponent": "sensor",
+      "uiComponent": "picker",
       "title": {
         "en": "Ventilation set point"
       },
@@ -2770,9 +3092,9 @@
         }
       ],
       "getable": true,
-      "setable": false,
-      "uiQuickAction": false,
-      "icon": "/assets/icons/heatpump_state.svg"
+      "setable": true,
+      "uiQuickAction": true,
+      "icon": "/assets/icons/fan_speed.svg"
     },
     "filter_days": {
       "type": "number",

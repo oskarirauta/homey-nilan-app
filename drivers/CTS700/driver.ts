@@ -20,23 +20,34 @@ module.exports = class CTS700Driver extends Homey.Driver {
         throw new Error(this.homey.__('pair.valid_ip_address'));
       }
 
-      // todo: check port and unitid that they are numbers and in given ranges
+      const port = Number(data.port);
+      const unitId = Number(data.unitid);
+      if (!Number.isInteger(port) || port < 1 || port > 65535)
+        throw new Error('Port must be an integer between 1 and 65535.');
+      if (!Number.isInteger(unitId) || unitId < 1 || unitId > 254)
+        throw new Error('Modbus unit ID must be an integer between 1 and 254.');
 
       const api = new ModbusApi({
         homey: this.homey,
         logger: this.log,
       });
-      await api._connection(data.ipaddress, data.port, data.unitid);
 
+      try {
+        await api._connection(data.ipaddress, port, unitId);
+      } finally {
+        await api._disconnect();
+      }
+
+      const deviceId = `${data.ipaddress}.${port}.${unitId}`;
       devices = [{
-        name: 'Compact P - Air 9',
+        name: 'Nilan CTS700',
         data: {
-          id: 'x.x.x.x',
+          id: deviceId,
         },
         settings: {
           'device-ip': data.ipaddress,
-          'device-port': data.port,
-          'device-id': data.unitid
+          'device-port': port,
+          'device-id': unitId
         }
       }];
 

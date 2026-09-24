@@ -2,10 +2,10 @@
   "type": "enum",
   "uiComponent": "sensor",
   "title": {
-    "en": "External heater state"
+    "en": "Central-heating level"
   },  
   "desc": {
-    "en": "Electical heater state"
+    "en": "Number of active central-heating elements"
   },
   "values": [
     {  
@@ -14,10 +14,46 @@
         "en": "Off"
       }
     },
-    {  
+    {
       "id": "1",
       "title": {
-        "en": "On"
+        "en": "1 element"
+      }
+    },
+    {
+      "id": "2",
+      "title": {
+        "en": "2 elements"
+      }
+    },
+    {
+      "id": "3",
+      "title": {
+        "en": "3 elements"
+      }
+    },
+    {
+      "id": "4",
+      "title": {
+        "en": "4 elements"
+      }
+    },
+    {
+      "id": "5",
+      "title": {
+        "en": "5 elements"
+      }
+    },
+    {
+      "id": "6",
+      "title": {
+        "en": "6 elements"
+      }
+    },
+    {
+      "id": "7",
+      "title": {
+        "en": "7 elements"
       }
     }
   ],

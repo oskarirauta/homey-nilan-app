@@ -44,37 +44,49 @@ module.exports = class CTS602Driver extends Homey.Driver {
         throw new Error(this.homey.__('pair.valid_ip_address'));
       }
 
-      // todo: check port and unitid that they are numbers and in given ranges
+      const port = Number(data.port);
+      const unitId = Number(data.unitid);
+      if (!Number.isInteger(port) || port < 1 || port > 65535)
+        throw new Error('Port must be an integer between 1 and 65535.');
+      if (!Number.isInteger(unitId) || unitId < 1 || unitId > 254)
+        throw new Error('Modbus unit ID must be an integer between 1 and 254.');
 
       const api = new ModbusApi({
         homey: this.homey,
         logger: this.log,
       });
-      await api._connection(data.ipaddress, data.port, data.unitid);
 
-      const machineType = await this._getMachineType(api);
+      let machineType: number | undefined;
+      try {
+        await api._connection(data.ipaddress, port, unitId);
+        machineType = await this._getMachineType(api);
+      } finally {
+        await api._disconnect();
+      }
 
-      if ( machineType == undefined ) {
+      if (machineType === undefined)
         throw new Error(this.homey.__('errors.identification_failed'));
-      } else this.log('Machine type', MachineTypes.get(machineType), 'with type code', machineType, 'found'); 
 
-      await api._disconnect();
-      await api._connection(data.ipaddress, data.port, data.unitid);
+      this.log('Machine type', MachineTypes.get(machineType), 'with type code', machineType, 'found');
 
-      const machineId = data.ipaddress + '.' + data.port.toString() + '.' + data.unitid.toString();
-      this.log('device id: ' + machineId);
+      const machineId = `${data.ipaddress}.${port}.${unitId}`;
+      this.log('device id:', machineId);
+
+      const hasExternalHeater = data.externalheater === true;
+      const hasCo2Sensor = data.co2sensor === true;
 
       devices = [{
         name: MachineTypes.get(machineType),
         data: {
           id: machineId,
           model: machineType,
-          externalheater: data.externalheater
+          externalHeater: hasExternalHeater,
+          co2Sensor: hasCo2Sensor
         },
         settings: {
           'device-ip': data.ipaddress,
-          'device-port': data.port,
-          'device-id': data.unitid
+          'device-port': port,
+          'device-id': unitId
         }
       }];
 

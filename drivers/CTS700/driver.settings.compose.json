@@ -12,9 +12,6 @@
           "en": "IP address"
         },
         "value": "0.0.0.0",
-        "label": {
-          "en": "Port"
-        },
         "hint": { 
           "en": "Specify the ip of the Nilan Modbus adapter"
         }

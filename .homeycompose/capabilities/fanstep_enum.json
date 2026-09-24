@@ -1,6 +1,6 @@
 {
   "type": "enum",
-  "uiComponent": "sensor",
+  "uiComponent": "picker",
   "title": {
     "en": "Ventilation set point"
   },  
@@ -34,7 +34,8 @@
     }
   ],
   "getable": true,
-  "setable": false,
-  "uiQuickAction": false,
-  "icon": "/assets/icons/heatpump_state.svg"
+  "setable": true,
+  "uiComponent": "picker",
+  "uiQuickAction": true,
+  "icon": "/assets/icons/fan_speed.svg"
 }

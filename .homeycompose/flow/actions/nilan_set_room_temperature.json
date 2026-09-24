@@ -1,25 +1,25 @@
 {
-  "id": "nilan_set_water_temperature",
+  "id": "nilan_set_room_temperature",
   "title": {
-    "en": "Set water temperature"
+    "en": "Set room temperature"
   },
   "titleFormatted": {
-    "en": "Set water temperature [[temperature]]"
+    "en": "Set room temperature to [[temperature]]"
   },
   "hint": {
-    "en": "Set water temperature."
+    "en": "Set the indoor temperature setpoint."
   },
   "args": [
     {
       "name": "device",
       "type": "device",
-      "filter": "driver_id=CTS602&capabilities=target_temperature.water"
+      "filter": "driver_id=CTS602&capabilities=target_temperature"
     },
     {
       "name": "temperature",
       "type": "range",
       "min": 5,
-      "max": 65,
+      "max": 30,
       "step": 0.5,
       "label": "°C",
       "labelMultiplier": 1,

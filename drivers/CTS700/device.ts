@@ -94,10 +94,7 @@ module.exports = class CTS700Device extends Homey.Device {
       }
       this._api.resetSocket();
     }
-    if (changedKeys.includes('Polling_Interval')) {
-      this.addFetchTimeout();
-    }
-    if (changedKeys.includes('temp_report_interval')) {
+    if (changedKeys.includes('polling-interval') || changedKeys.includes('temp-report-interval')) {
       this.addFetchTimeout();
     }
   }

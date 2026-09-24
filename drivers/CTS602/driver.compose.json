@@ -10,6 +10,16 @@
   "class": "heatpump",
   "capabilities": [],
   "capabilitiesOptions": {
+    "measure_power": {
+      "title": {
+        "en": "Estimated power"
+      }
+    },
+    "meter_power": {
+      "title": {
+        "en": "Estimated energy"
+      }
+    },
     "target_temperature": {
       "title": {
         "en": "Indoor"
@@ -749,13 +759,13 @@
         "en": "Electric heater"
       },
       "desc": {
-        "en": "0 = off, >= = heating power level"
+        "en": "0 = off, 1–7 = active heating elements"
       },
       "units": {
         "en": "Level"
       },
       "hint": {
-        "en": "0 = off, >0 = heating power level"
+        "en": "0 = off, 1–7 = active heating elements"
       },
       "decimals": 0,   
       "min": 0,

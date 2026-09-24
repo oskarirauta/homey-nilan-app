@@ -3,7 +3,23 @@ import net from 'net';
 import { Register, ValueType, CapacityMapping, CapacityMap, UpdateMapping, UpdateMap, Fetch, limitValueRange } from '../../types';
 import { ID_REGISTERS, OPERATION_REGISTERS, SENSOR_REGISTERS, ALARM_REGISTERS, CAPABILITIES, newUpdateMap } from './constants';
 import { ModbusApi } from '../../modbus_api';
-import { DeviceCapabilities, getDeviceCapabilities, hasFwCaps, capIsFwRelated, capIsInsightsNumber, capIsAlarmRelated } from './capabilities';
+import { DeviceCapabilities, getDeviceCapabilities, DeviceFeatures, hasFwCaps, capIsFwRelated, capIsInsightsNumber, capIsAlarmRelated } from './capabilities';
+
+const ENERGY_PERSIST_INTERVAL_MS = 5 * 60 * 1000;
+const EK_RETURN_CONFIRMATION_READS = 3;
+const EK_RETURN_MIN_TEMPERATURE = -20;
+const EK_RETURN_MAX_TEMPERATURE = 80;
+const POWER_SETTING_DEFAULTS: Record<string, number> = {
+  'power-compressor': 700,
+  'power-fan-step-1': 30,
+  'power-fan-step-2': 50,
+  'power-fan-step-3': 70,
+  'power-fan-step-4': 100,
+  'power-hot-water-heater': 1000,
+  'power-central-heater-element': 2000,
+  'power-water-pump': 0,
+  'power-external-heat-source': 0
+};
 
 module.exports = class CTS602Device extends Homey.Device {
 
@@ -35,6 +51,14 @@ module.exports = class CTS602Device extends Homey.Device {
     }
   ];
   capIds: Array<string> = [];
+  lastPowerUpdate?: number;
+  estimatedEnergy = 0;
+  lastEstimatedPower = 0;
+  lastEnergyPersist?: number;
+  latestOperationValues: Register.Results = new Map();
+  ekReturnConfirmationCount = 0;
+  ekReturnCapabilityReady = false;
+  compressorCapacityCapabilityReady = false;
 
   async onInit() {
 
@@ -45,18 +69,40 @@ module.exports = class CTS602Device extends Homey.Device {
       onUpdateValues: this.onUpdateValues
     });
 
-    const capIds = getDeviceCapabilities((await this.getData().model) + (await this.getData().externalheater === true ? 1000 : 0));
+    const data = this.getData();
+    const settings = this.getSettings();
+    const storedFeatures = data.features as Partial<DeviceFeatures> | undefined;
+    const explicitlyConfiguredFeatures = data.externalHeater !== undefined
+      || data.co2Sensor !== undefined
+      || data.externalheater !== undefined
+      || data.co2sensor !== undefined
+      || storedFeatures !== undefined;
+    const features: DeviceFeatures = {
+      externalHeater: data.externalHeater === true
+        || storedFeatures?.externalHeater === true
+        || data.externalheater === true
+        || settings['external-heater-installed'] === true,
+      co2Sensor: data.co2Sensor === true
+        || storedFeatures?.co2Sensor === true
+        || data.co2sensor === true
+        || settings['co2-sensor-installed'] === true
+    };
+    const capIds = getDeviceCapabilities(data.model ?? -1, features);
+
+    this.log('data:', data);
+    this.log('installed features:', features);
+
     let curIds = await this.getCapabilities();
     let didAddAlarms: Boolean = false;
+
+    this.log('adding capabilities for type', data.model, ':', capIds);
+    this.log('cur ids:', curIds);
   
     for (const capId of capIds) {
     
       if (!curIds.includes(capId)) {
 
-        if (capId === 'measure_co2') {
-          if (curIds.indexOf('hidden_number.co2_enable') < 0 || await this.getCapabilityValue('hidden_number.co2_enable') > 0)
-            await this.addCapability(capId);
-        } else await this.addCapability(capId);
+        await this.addCapability(capId);
 
         try {
 
@@ -66,8 +112,6 @@ module.exports = class CTS602Device extends Homey.Device {
             await this.setCapabilityValue(capId, 0);
           else if (capIsAlarmRelated(capId))
             didAddAlarms = true;
-          else if (capId === 'hidden_number.co2_enable')
-            await this.setCapabilityValue(capId, 1);
 
         } catch (err) {
           this.log('failed to set initial capacity value for ', capId, ': ', err);
@@ -81,6 +125,31 @@ module.exports = class CTS602Device extends Homey.Device {
     for (const id of await this.getCapabilities())
       this.capIds.push(id);
 
+    this.ekReturnCapabilityReady = this.capIds.includes('measure_temperature.ek_return');
+
+    const compressorCapacityWasDetected = await this.getStoreValue('compressor-capacity-detected') === true;
+    const currentCompressorCapacity = this.hasCapability('capacity.compressor')
+      ? Number(await this.getCapabilityValue('capacity.compressor'))
+      : 0;
+    this.compressorCapacityCapabilityReady = compressorCapacityWasDetected || currentCompressorCapacity > 0;
+    if (this.compressorCapacityCapabilityReady && !compressorCapacityWasDetected)
+      await this.setStoreValue('compressor-capacity-detected', true);
+
+    if (!this.compressorCapacityCapabilityReady) {
+      for (const capability of ['capacity.compressor', 'insights_dec_number.compressor_capacity']) {
+        if (this.hasCapability(capability)) await this.removeCapability(capability);
+        const index = this.capIds.indexOf(capability);
+        if (index >= 0) this.capIds.splice(index, 1);
+      }
+    }
+
+    if (explicitlyConfiguredFeatures && !features.co2Sensor && this.hasCapability('measure_co2')) {
+      await this.removeCapability('measure_co2');
+      const co2Index = this.capIds.indexOf('measure_co2');
+      if (co2Index >= 0) this.capIds.splice(co2Index, 1);
+      this.log('Removed CO2 capability because the sensor was not selected during pairing');
+    }
+
     if (didAddAlarms) {
       try {
         await this.resetAlarms();
@@ -90,16 +159,23 @@ module.exports = class CTS602Device extends Homey.Device {
     }
 
     this.updates.forEach((item, key) => {
+      const capabilityId = item.capability || key;
 
-      if (item.queries.has(item.id) && (this.capIds.indexOf(key) > -1))
-        this.registerCapabilityListener(key, (value, opts) => {
+      if (item.queries.has(item.id) && this.capIds.includes(capabilityId)) {
+        this.registerCapabilityListener(capabilityId, (value, opts) => {
           return this.updateValue(key, value, opts);
         });
-
+      }
     });
+
+    this.estimatedEnergy = Number(this.getStoreValue('estimated-energy-kwh')) || 0;
+    this.lastPowerUpdate = Date.now();
+    this.lastEnergyPersist = this.lastPowerUpdate;
+    await this.setCapabilityValue2('meter_power', this.estimatedEnergy);
 
     this.addFetchTimeout(1);
     await this.connect();
+
     if ((this._api._socket === undefined) || (this._api._client === undefined))
       this.log('waiting for connection to device');
     else {
@@ -112,7 +188,10 @@ module.exports = class CTS602Device extends Homey.Device {
     this.log('device added');
   }
 
-  onUninit() {
+  async onUninit(): Promise<void> {
+
+    if (this.capIds.includes('meter_power'))
+      await this.setStoreValue('estimated-energy-kwh', this.estimatedEnergy);
 
     this._api._onUpdateValues = undefined;
     this.clearFetchTimeout();   
@@ -121,6 +200,9 @@ module.exports = class CTS602Device extends Homey.Device {
   }
 
   onDeleted() {
+
+    if (this.capIds.includes('meter_power'))
+      this.setStoreValue('estimated-energy-kwh', this.estimatedEnergy).catch(err => this.error(err));
 
     this._api._onUpdateValues = undefined;
     this.clearFetchTimeout();
@@ -152,11 +234,19 @@ module.exports = class CTS602Device extends Homey.Device {
       }
       this._api.resetSocket();
     }
-    if (changedKeys.includes('Polling_Interval')) {
+    if (changedKeys.includes('polling-interval') || changedKeys.includes('temp-report-interval')) {
       this.addFetchTimeout();
     }
-    if (changedKeys.includes('temp_report_interval')) {
-      this.addFetchTimeout();
+    if (changedKeys.some(key => key.startsWith('power-')) && this.latestOperationValues.size > 0) {
+      await this.updateEstimatedEnergy(new Map());
+    }
+    if (changedKeys.includes('meter_power')) {
+      const meterValue = Number((newSettings as Record<string, unknown>)['meter_power']);
+      if (Number.isFinite(meterValue) && meterValue >= 0) {
+        this.estimatedEnergy = meterValue;
+        this.lastPowerUpdate = Date.now();
+        await this.setStoreValue('estimated-energy-kwh', meterValue);
+      }
     }
   }
 
@@ -252,10 +342,119 @@ module.exports = class CTS602Device extends Homey.Device {
     }
   }
 
+  getPowerSetting(key: string): number {
+    const rawValue = this.getSetting(key);
+    if (rawValue === null || rawValue === undefined || rawValue === '')
+      return POWER_SETTING_DEFAULTS[key];
+
+    const configured = Number(rawValue);
+    return Number.isFinite(configured) && configured >= 0
+      ? configured
+      : POWER_SETTING_DEFAULTS[key];
+  }
+
+  getCentralHeaterLevel(values: Register.Results): number {
+    const relay1 = Number(values.get('Output.CenHeat_1') ?? 0) !== 0 ? 1 : 0;
+    const relay2 = Number(values.get('Output.CenHeat_2') ?? 0) !== 0 ? 1 : 0;
+    const relay3 = Number(values.get('Output.CenHeat_3') ?? 0) !== 0 ? 1 : 0;
+    return relay1 + relay2 * 2 + relay3 * 4;
+  }
+
+  getCentralHeaterElementPower(): number {
+    const configured = this.getSetting('power-central-heater-element');
+    if (configured !== null && configured !== undefined && configured !== '') {
+      const value = Number(configured);
+      if (Number.isFinite(value) && value >= 0) return value;
+    }
+
+    // Compatibility with devices created while the estimate used three separate settings.
+    const legacy = Number(this.getSetting('power-central-heater-1'));
+    return Number.isFinite(legacy) && legacy >= 0
+      ? legacy
+      : POWER_SETTING_DEFAULTS['power-central-heater-element'];
+  }
+
+  getEstimatedPower(values: Register.Results): number {
+    const active = (key: string): boolean => (values.get(key) || 0) > 0;
+    const inletStep = Math.max(0, Math.min(4, Math.round(values.get('AirFlow.InletAct') || 0)));
+    const exhaustStep = Math.max(0, Math.min(4, Math.round(values.get('AirFlow.ExhaustAct') || 0)));
+    const fanStep = Math.max(inletStep, exhaustStep);
+
+    let power = fanStep > 0 ? this.getPowerSetting(`power-fan-step-${fanStep}`) : 0;
+    if (active('Output.Compressor')) power += this.getPowerSetting('power-compressor');
+    if (active('Output.WaterHeatEl')) power += this.getPowerSetting('power-hot-water-heater');
+    power += this.getCentralHeaterLevel(values) * this.getCentralHeaterElementPower();
+    if (active('Output.CenCircPump')) power += this.getPowerSetting('power-water-pump');
+    if (active('Output.CenHeatExt') && this.capIds.includes('externalheater'))
+      power += this.getPowerSetting('power-external-heat-source');
+
+    return Math.max(0, power);
+  }
+
+  async updateEstimatedEnergy(values: Register.Results): Promise<void> {
+    values.forEach((value, key) => this.latestOperationValues.set(key, value));
+
+    const now = Date.now();
+    const power = this.getEstimatedPower(this.latestOperationValues);
+    if (this.lastPowerUpdate !== undefined) {
+      const elapsedHours = Math.min(now - this.lastPowerUpdate, 10 * 60 * 1000) / 3600000;
+      this.estimatedEnergy += this.lastEstimatedPower * elapsedHours / 1000;
+    }
+    this.lastPowerUpdate = now;
+    this.lastEstimatedPower = power;
+
+    await this.setCapabilityValue2('measure_power', Math.round(power));
+    await this.setCapabilityValue2('meter_power', Number(this.estimatedEnergy.toFixed(3)));
+
+    if (!this.lastEnergyPersist || now - this.lastEnergyPersist >= ENERGY_PERSIST_INTERVAL_MS) {
+      await this.setStoreValue('estimated-energy-kwh', this.estimatedEnergy);
+      this.lastEnergyPersist = now;
+    }
+  }
+
+  async detectEkReturnSensor(result: Register.Results): Promise<void> {
+    if (this.ekReturnCapabilityReady || !result.has('Input.T13_Return')) return;
+
+    const temperature = result.get('Input.T13_Return');
+    const plausible = temperature !== undefined
+      && temperature !== 0
+      && temperature >= EK_RETURN_MIN_TEMPERATURE
+      && temperature <= EK_RETURN_MAX_TEMPERATURE;
+    this.ekReturnConfirmationCount = plausible ? this.ekReturnConfirmationCount + 1 : 0;
+
+    if (this.ekReturnConfirmationCount < EK_RETURN_CONFIRMATION_READS) return;
+
+    for (const capability of ['measure_temperature.ek_return', 'insights_dec_number.T13_return']) {
+      if (!this.hasCapability(capability)) await this.addCapability(capability);
+      if (!this.capIds.includes(capability)) this.capIds.push(capability);
+    }
+    this.ekReturnCapabilityReady = true;
+    this.log('Detected a plausible EK return-water sensor value; capabilities added');
+  }
+
+  async detectCompressorCapacity(result: Register.Results): Promise<void> {
+    if (this.compressorCapacityCapabilityReady || !result.has('Output.CprCap')) return;
+
+    const capacity = result.get('Output.CprCap');
+    if (capacity === undefined || !Number.isFinite(capacity) || capacity <= 0 || capacity > 100) return;
+
+    for (const capability of ['capacity.compressor', 'insights_dec_number.compressor_capacity']) {
+      if (!this.hasCapability(capability)) await this.addCapability(capability);
+      if (!this.capIds.includes(capability)) this.capIds.push(capability);
+    }
+    this.compressorCapacityCapabilityReady = true;
+    await this.setStoreValue('compressor-capacity-detected', true);
+    this.log('Detected a non-zero compressor capacity value; capabilities added');
+  }
+
   async onUpdateValues(result: Register.Results, device: any): Promise<void> {
 
     if (!device.getAvailable())
       return;
+
+    await device.detectEkReturnSensor(result);
+    await device.detectCompressorCapacity(result);
+    await device.updateEstimatedEnergy(result);
 
     if (result.has('Alarm.Status') && result.has('Alarm.List_1_ID') && result.has('Alarm.List_2_ID') && result.has('Alarm.List_3_ID') && result.has('Input.AirFilter'))
       device.updateAlarms(result.get('Alarm.Status'), result.get('Alarm.List_1_ID'), result.get('Alarm.List_2_ID'), result.get('Alarm.List_3_ID'), result.get('Input.AirFilter'));
@@ -270,38 +469,9 @@ module.exports = class CTS602Device extends Homey.Device {
 
     if (result.has('Output.CenHeat_1') && result.has('Output.CenHeat_2') && result.has('Output.CenHeat_3')) {
 
-      const heater1 = result.get('Output.CenHeat_1');
-      const heater2 = result.get('Output.CenHeat_2');
-      const heater3 = result.get('Output.CenHeat_3');
-
-      if (heater1 === 0 && heater2 === 0 && heater3 === 0) {
-        await device.setCapabilityValue2('electricheater', '0');
-        await device.setCapabilityValue2('insights_number.electricheater', 0);
-      } else if (heater1 === 1 && heater2 === 0 && heater3 === 0) {
-        await device.setCapabilityValue2('electricheater', '1');
-        await device.setCapabilityValue2('insights_number.electricheater', 1);
-      } else if (heater1 === 0 && heater2 === 1 && heater3 === 0) {
-        await device.setCapabilityValue2('electricheater', '2');
-        await device.setCapabilityValue2('insights_number.electricheater', 2);
-      } else if (heater1 === 1 && heater2 === 1 && heater3 === 0) {
-        await device.setCapabilityValue2('electricheater', '3');
-        await device.setCapabilityValue2('insights_number.electricheater', 3);
-      } else if (heater1 === 0 && heater2 === 0 && heater3 === 1) {
-        await device.setCapabilityValue2('electricheater', '4');
-        await device.setCapabilityValue2('insights_number.electricheater', 4);
-      } else if (heater1 === 1 && heater2 === 0 && heater3 === 1) {
-        await device.setCapabilityValue2('electricheater', '5');
-        await device.setCapabilityValue2('insights_number.electricheater', 5);
-      } else if (heater1 === 0 && heater2 === 1 && heater3 === 1) {
-        await device.setCapabilityValue2('electricheater', '6');
-        await device.setCapabilityValue2('insights_number.electricheater', 6);
-      } else if (heater1 === 1 && heater2 === 1 && heater3 === 1) {
-        await device.setCapabilityValue2('electricheater', '7');
-        await device.setCapabilityValue2('insights_number.electricheater', 7);
-      } else {
-        await device.setCapabilityValue2('electricheater', '0');
-        await device.setCapabilityValue2('insights_number.electricheater', 0);
-      }
+      const heaterLevel = device.getCentralHeaterLevel(result);
+      await device.setCapabilityValue2('electricheater', String(heaterLevel));
+      await device.setCapabilityValue2('insights_number.electricheater', heaterLevel);
     }
 
     if (result.has('Output.Defrosting'))
@@ -313,24 +483,11 @@ module.exports = class CTS602Device extends Homey.Device {
     if (result.has('Output.CenCircPump'))
       await device.setCapabilityValue2('insights_number.waterpump_state', result.get('Output.CenCircPump') === 0 ? 0 : 1);
 
-    if (result.has('Output.CenHeatExt'))
-      await device.setCapabilityValue2('insights_number.externalheater', result.get('Output.CenHeatExt') === 0 ? 0 : 1);
-
     if (result.has('Control.RunAct'))
       await device.setCapabilityValue2('insights_number.run_state', result.get('Control.RunAct') === 0 ? 0 : 1);
 
     if (result.has('AirFlow.InletAct'))
       await device.setCapabilityValue2('insights_number.ventilation', result.get('AirFlow.InletAct'));
-
-    if (result.has('AirQual.CO2_Enable') && result.get('AirQual.CO2_Enable') === 0 && device.capIds.indexOf('measure_co2') > -1) {
-      // remove co2 measuring
-      await device.removeCapability('measure_co2');
-      device.capIds.splice(device.capIds.indexOf('measure_co2'), 1);
-    } else if (result.has('AirQual.CO2_Enable') && result.get('AirQual.CO2_Enable') === 1 && device.capIds.indexOf('measure_co2') < 0) {
-      // add co2 measuring
-      await device.addCapability('measure_co2');
-      device.capIds.push('measure_co2');
-    }
 
     result.forEach((value, key) => {
       const mapping = CAPABILITIES.get(key);
